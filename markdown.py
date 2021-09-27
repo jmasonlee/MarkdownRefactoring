@@ -26,8 +26,7 @@ def parse(markdown):
                     is_bold = True
                 m1 = re.match('(.*)_(.*)_(.*)', curr)
                 if m1:
-                    curr = m1.group(1) + '<em>' + m1.group(2) + \
-                        '</em>' + m1.group(3)
+                    curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
                     is_italic = True
                 i = '<ul><li>' + curr + '</li>'
             else:
