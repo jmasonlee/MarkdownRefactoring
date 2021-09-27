@@ -10,35 +10,34 @@ from approvaltests.approvals import verify_all
 # Tests adapted from `problem-specifications//canonical-data.json`
 
 
-def test_all_combinations():
-    input_strings = ["""# Header 1
-## Header 2
-###### Header 6
-*  A thing 
-* __ A bold thing in a list __
-* _An italic thing in a list_ 
-
-* __A bold thing __
-
-* _An italic thing_
-
- __A bold thing __
-
- _An italic thing_
-
-<h4> hello </h4>
-<ul>
-<li> One </li>
-</ul>
-<p> Hello! </p>
-"""]
-    results = []
-    for input_string in input_strings:
-        results.append(parse(input_string))
-    verify_all("markdown", results)
-
-
 class MarkdownTest(unittest.TestCase):
+    def test_all_combinations(self):
+        input_strings = ["""# Header 1
+        ## Header 2
+        ###### Header 6
+        *  A thing 
+        * __ A bold thing in a list __
+        * _An italic thing in a list_ 
+    
+        * __A bold thing __
+    
+        * _An italic thing_
+    
+         __A bold thing __
+    
+         _An italic thing_
+    
+        <h4> hello </h4>
+        <ul>
+        <li> One </li>
+        </ul>
+        <p> Hello! </p>
+        """]
+        results = []
+        for input_string in input_strings:
+            results.append(parse(input_string))
+        verify_all("markdown", results)
+
     def test_parses_normal_text_as_a_paragraph(self):
         self.assertEqual(
             parse("This will be a paragraph"), "<p>This will be a paragraph</p>"
