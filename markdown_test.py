@@ -13,26 +13,26 @@ from approvaltests.approvals import verify_all
 class MarkdownTest(unittest.TestCase):
     def test_all_combinations(self):
         input_strings = ["""# Header 1
-        ## Header 2
-        ###### Header 6
-        *  A thing 
-        * __ A bold thing in a list __
-        * _An italic thing in a list_ 
+## Header 2
+###### Header 6
+*  A thing 
+* __ A bold thing in a list __
+* _An italic thing in a list_ 
     
-        * __A bold thing __
+* __A bold thing __
     
-        * _An italic thing_
+* _An italic thing_
     
-         __A bold thing __
+ __A bold thing __
     
-         _An italic thing_
+ _An italic thing_
     
-        <h4> hello </h4>
-        <ul>
-        <li> One </li>
-        </ul>
-        <p> Hello! </p>
-        """]
+<h4> hello </h4>
+<ul>
+<li> One </li>
+</ul>
+<p> Hello! </p>
+"""]
         results = []
         for input_string in input_strings:
             results.append(parse(input_string))
