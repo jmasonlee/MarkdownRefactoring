@@ -22,8 +22,7 @@ def parse(markdown):
                 curr = m.group(1)
                 m1 = re.match('(.*)__(.*)__(.*)', curr)
                 if m1:
-                    curr = m1.group(1) + '<strong>' + \
-                        m1.group(2) + '</strong>' + m1.group(3)
+                    curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
                     is_bold = True
                 m1 = re.match('(.*)_(.*)_(.*)', curr)
                 if m1:
