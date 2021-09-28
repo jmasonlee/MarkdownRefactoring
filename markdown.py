@@ -59,8 +59,8 @@ def italicize(line):
     return line
 
 
-def add_italics_to_emphasized_portion(line_with_italics):
-    return line_with_italics.group(1) + '<em>' + line_with_italics.group(2) + '</em>' + line_with_italics.group(3)
+def add_italics_to_emphasized_portion(matching_line):
+    return matching_line.group(1) + '<em>' + matching_line.group(2) + '</em>' + matching_line.group(3)
 
 
 def add_emphasis(curr1) -> AnyStr:
