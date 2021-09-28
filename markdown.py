@@ -37,38 +37,7 @@ def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
     if not line_starts_with_asterisk_regex_match:
         if line_starts_with_asterisk_regex_match:
-            if not in_list:
-                in_list = True
-                curr = line_starts_with_asterisk_regex_match.group(1)
-
-                m_3 = re.match('(.*)__(.*)__(.*)', curr)
-                if m_3:
-                    curr = m_3.group(1) + '<strong>' + m_3.group(2) + '</strong>' + m_3.group(3)
-
-                m_2 = re.match('(.*)_(.*)_(.*)', curr)
-                if m_2:
-                    curr = m_2.group(1) + '<em>' + m_2.group(2) + '</em>' + m_2.group(3)
-
-                line = '<ul><li>' + curr + '</li>'
-            else:
-                is_bold = False
-                is_italic = False
-                curr = line_starts_with_asterisk_regex_match.group(1)
-
-                m_1 = re.match('(.*)__(.*)__(.*)', curr)
-                if m_1:
-                    is_bold = True
-
-                m_ = re.match('(.*)_(.*)_(.*)', curr)
-                if m_:
-                    is_italic = True
-                m1 = m_
-
-                if is_bold:
-                    curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
-                if is_italic:
-                    curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
-                line = '<li>' + curr + '</li>'
+            pass
         else:
             if in_list:
                 in_list_append = True
