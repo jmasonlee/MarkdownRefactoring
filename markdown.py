@@ -54,10 +54,10 @@ def handle_lists(line, in_list, in_list_append):
 
 def italicize(line):
     emphasis_pattern = '(.*)_(.*)_(.*)'
+    emphasis_tag = '<em>'
+    ending_tag = '</em>'
     line_with_italics = re.match(emphasis_pattern, line)
     if line_with_italics:
-        emphasis_tag = '<em>'
-        ending_tag = '</em>'
         line = line_with_italics.group(1) + emphasis_tag + line_with_italics.group(2) + ending_tag + line_with_italics.group(3)
     return line
 
