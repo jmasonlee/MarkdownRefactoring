@@ -42,9 +42,7 @@ def handle_lists(line, in_list, in_list_append):
             m1 = re.match('(.*)__(.*)__(.*)', curr)
             if m1:
                 curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
-            m1 = re.match('(.*)_(.*)_(.*)', curr)
-            if m1:
-                curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
+            curr = method_name(curr)
             line = '<ul><li>' + curr + '</li>'
         else:
             is_bold = False
@@ -70,5 +68,12 @@ def handle_lists(line, in_list, in_list_append):
             in_list_append = True
             in_list = False
     return line, in_list, in_list_append
+
+
+def method_name(curr):
+    m1 = re.match('(.*)_(.*)_(.*)', curr)
+    if m1:
+        curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
+    return curr
 
 
