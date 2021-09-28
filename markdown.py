@@ -38,7 +38,7 @@ def handle_lists(line, in_list, in_list_append):
 
             curr1 = add_emphasis(curr1)
 
-            line = '<ul><li>' + curr1 + '</li>'
+            line = '<ul>'+'<li>' + curr1 + '</li>'
         else:
             curr1 = line_starts_with_asterisk_regex_match.group(1)
 
