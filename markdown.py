@@ -75,6 +75,7 @@ def add_emphasis(curr1) -> AnyStr:
     m__ = re.match(emphasis_pattern, curr1)
     if m__:
         emphasis_tag = '<em>'
-        curr1 = m__.group(1) + emphasis_tag + m__.group(2) + '</em>' + m__.group(3)
+        ending_tag = '</em>'
+        curr1 = m__.group(1) + emphasis_tag + m__.group(2) + ending_tag + m__.group(3)
     ###
     return curr1
