@@ -66,10 +66,10 @@ def add_italics_to_emphasized_portion(matching_line):
 def add_emphasis(curr1) -> AnyStr:
     ###
     emphasis_pattern = '(.*)__(.*)__(.*)'
+    emphasis_tag = '<strong>'
+    ending_tag = '</strong>'
     m__ = re.match(emphasis_pattern, curr1)
     if m__:
-        emphasis_tag = '<strong>'
-        ending_tag = '</strong>'
         curr1 = m__.group(1) + emphasis_tag + m__.group(2) + ending_tag + m__.group(3)
     ###
     ###
