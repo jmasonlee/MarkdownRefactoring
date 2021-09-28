@@ -53,9 +53,9 @@ def handle_lists(line, in_list, in_list_append):
 
 
 def italicize(line):
-    m_4 = re.match('(.*)_(.*)_(.*)', line)
-    if m_4:
-        line = m_4.group(1) + '<em>' + m_4.group(2) + '</em>' + m_4.group(3)
+    line_with_italics = re.match('(.*)_(.*)_(.*)', line)
+    if line_with_italics:
+        line = line_with_italics.group(1) + '<em>' + line_with_italics.group(2) + '</em>' + line_with_italics.group(3)
     return line
 
 
