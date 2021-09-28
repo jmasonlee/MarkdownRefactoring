@@ -53,7 +53,11 @@ def handle_lists(line, in_list, in_list_append):
             m1 = re.match('(.*)__(.*)__(.*)', curr)
             if m1:
                 is_bold = True
-            is_italic, m1 = method_name(curr, is_italic)
+            m_ = re.match('(.*)_(.*)_(.*)', curr)
+            if m_:
+                is_italic = True
+            result = is_italic, m_
+            is_italic, m1 = result
             if is_bold:
                 curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
             if is_italic:
@@ -66,8 +70,3 @@ def handle_lists(line, in_list, in_list_append):
     return line, in_list, in_list_append
 
 
-def method_name(curr, is_italic):
-    m1 = re.match('(.*)_(.*)_(.*)', curr)
-    if m1:
-        is_italic = True
-    return is_italic, m1
