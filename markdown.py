@@ -56,7 +56,7 @@ def handle_lists(line, in_list, in_list_append):
 
             m__2 = re.match('(.*)__(.*)__(.*)', curr1)
             if m__2:
-                bold = True
+                pass
 
             m_4 = re.match('(.*)_(.*)_(.*)', curr1)
             if m_4:
