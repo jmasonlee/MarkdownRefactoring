@@ -36,14 +36,14 @@ def parse(markdown):
 def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
     if not line_starts_with_asterisk_regex_match:
-        if line_starts_with_asterisk_regex_match:
-            pass
-        else:
+        if True:
             if in_list:
                 in_list_append = True
                 in_list = False  ### BEFORE RETURN
             result = in_list, in_list_append, line
             in_list, in_list_append, line = result
+        else:
+            pass
         ####
     else:
         ###
