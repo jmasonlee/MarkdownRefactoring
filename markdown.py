@@ -1,4 +1,5 @@
 import re
+from typing import AnyStr
 
 
 def parse(markdown):
@@ -58,7 +59,7 @@ def handle_lists(line, in_list, in_list_append):
     return line, in_list, in_list_append
 
 
-def add_emphasis(curr1):
+def add_emphasis(curr1) -> AnyStr:
     m__ = re.match('(.*)__(.*)__(.*)', curr1)
     if m__:
         curr1 = m__.group(1) + '<strong>' + m__.group(2) + '</strong>' + m__.group(3)
