@@ -55,8 +55,6 @@ def handle_lists(line, in_list, in_list_append):
             curr1 = line_starts_with_asterisk_regex_match.group(1)
 
             m__2 = re.match('(.*)__(.*)__(.*)', curr1)
-            if m__2:
-                pass
 
             m_4 = re.match('(.*)_(.*)_(.*)', curr1)
             if m_4:
