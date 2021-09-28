@@ -53,12 +53,14 @@ def handle_lists(line, in_list, in_list_append):
 
 
 def italicize(line):
-    emphasis_pattern = '(.*)_(.*)_(.*)'
-    emphasis_tag = '<em>'
-    ending_tag = '</em>'
-    line_with_italics = re.match(emphasis_pattern, line)
+    line = replace_markdown_with_html('</em>', line, '(.*)_(.*)_(.*)', '<em>')
+    return line
+
+
+def replace_markdown_with_html(ending_tag, line, pattern, tag):
+    line_with_italics = re.match(pattern, line)
     if line_with_italics:
-        line = line_with_italics.group(1) + emphasis_tag + line_with_italics.group(2) + ending_tag + line_with_italics.group(3)
+        line = line_with_italics.group(1) + tag + line_with_italics.group(2) + ending_tag + line_with_italics.group(3)
     return line
 
 
