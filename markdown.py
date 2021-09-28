@@ -56,7 +56,9 @@ def italicize(line):
     emphasis_pattern = '(.*)_(.*)_(.*)'
     line_with_italics = re.match(emphasis_pattern, line)
     if line_with_italics:
-        line = line_with_italics.group(1) + '<em>' + line_with_italics.group(2) + '</em>' + line_with_italics.group(3)
+        emphasis_tag = '<em>'
+        ending_tag = '</em>'
+        line = line_with_italics.group(1) + emphasis_tag + line_with_italics.group(2) + ending_tag + line_with_italics.group(3)
     return line
 
 
