@@ -42,38 +42,36 @@ def handle_lists(line, in_list, in_list_append):
         result = in_list, in_list_append, line
         in_list, in_list_append, line = result
     else:
-        ###
-        if line_starts_with_asterisk_regex_match:  ### START
-            if not in_list:
-                in_list = True
-                curr1 = line_starts_with_asterisk_regex_match.group(1)
+        if not in_list:
+            in_list = True
+            curr1 = line_starts_with_asterisk_regex_match.group(1)
 
-                m__ = re.match('(.*)__(.*)__(.*)', curr1)
-                if m__:
-                    curr1 = m__.group(1) + '<strong>' + m__.group(2) + '</strong>' + m__.group(3)
+            m__ = re.match('(.*)__(.*)__(.*)', curr1)
+            if m__:
+                curr1 = m__.group(1) + '<strong>' + m__.group(2) + '</strong>' + m__.group(3)
 
-                m__1 = re.match('(.*)_(.*)_(.*)', curr1)
-                if m__1:
-                    curr1 = m__1.group(1) + '<em>' + m__1.group(2) + '</em>' + m__1.group(3)
+            m__1 = re.match('(.*)_(.*)_(.*)', curr1)
+            if m__1:
+                curr1 = m__1.group(1) + '<em>' + m__1.group(2) + '</em>' + m__1.group(3)
 
-                line = '<ul><li>' + curr1 + '</li>'
-            else:
-                bold = False
-                italic = False
-                curr1 = line_starts_with_asterisk_regex_match.group(1)
+            line = '<ul><li>' + curr1 + '</li>'
+        else:
+            bold = False
+            italic = False
+            curr1 = line_starts_with_asterisk_regex_match.group(1)
 
-                m__2 = re.match('(.*)__(.*)__(.*)', curr1)
-                if m__2:
-                    bold = True
+            m__2 = re.match('(.*)__(.*)__(.*)', curr1)
+            if m__2:
+                bold = True
 
-                m_4 = re.match('(.*)_(.*)_(.*)', curr1)
-                if m_4:
-                    italic = True
-                m_5 = m_4
+            m_4 = re.match('(.*)_(.*)_(.*)', curr1)
+            if m_4:
+                italic = True
+            m_5 = m_4
 
-                if bold:
-                    curr1 = m_5.group(1) + '<strong>' + m_5.group(2) + '</strong>' + m_5.group(3)
-                if italic:
-                    curr1 = m_5.group(1) + '<em>' + m_5.group(2) + '</em>' + m_5.group(3)
-                line = '<li>' + curr1 + '</li>'
+            if bold:
+                curr1 = m_5.group(1) + '<strong>' + m_5.group(2) + '</strong>' + m_5.group(3)
+            if italic:
+                curr1 = m_5.group(1) + '<em>' + m_5.group(2) + '</em>' + m_5.group(3)
+            line = '<li>' + curr1 + '</li>'
     return line, in_list, in_list_append
