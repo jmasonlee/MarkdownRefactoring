@@ -40,13 +40,7 @@ def handle_lists(line, in_list, in_list_append):
             in_list = True
             curr1 = line_starts_with_asterisk_regex_match.group(1)
 
-            m__ = re.match('(.*)__(.*)__(.*)', curr1)
-            if m__:
-                curr1 = m__.group(1) + '<strong>' + m__.group(2) + '</strong>' + m__.group(3)
-
-            m__1 = re.match('(.*)_(.*)_(.*)', curr1)
-            if m__1:
-                curr1 = m__1.group(1) + '<em>' + m__1.group(2) + '</em>' + m__1.group(3)
+            curr1 = add_emphasis(curr1)
 
             line = '<ul><li>' + curr1 + '</li>'
         else:
@@ -67,3 +61,13 @@ def handle_lists(line, in_list, in_list_append):
         result = in_list, in_list_append, line
         in_list, in_list_append, line = result
     return line, in_list, in_list_append
+
+
+def add_emphasis(curr1):
+    m__ = re.match('(.*)__(.*)__(.*)', curr1)
+    if m__:
+        curr1 = m__.group(1) + '<strong>' + m__.group(2) + '</strong>' + m__.group(3)
+    m__1 = re.match('(.*)_(.*)_(.*)', curr1)
+    if m__1:
+        curr1 = m__1.group(1) + '<em>' + m__1.group(2) + '</em>' + m__1.group(3)
+    return curr1
