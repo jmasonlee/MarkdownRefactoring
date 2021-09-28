@@ -38,17 +38,13 @@ def handle_lists(line, in_list, in_list_append):
     if line_starts_with_asterisk_regex_match:
         if not in_list:
             in_list = True
-            is_bold = False
-            is_italic = False
             curr = line_starts_with_asterisk_regex_match.group(1)
             m1 = re.match('(.*)__(.*)__(.*)', curr)
             if m1:
                 curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
-                is_bold = True
             m1 = re.match('(.*)_(.*)_(.*)', curr)
             if m1:
                 curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
-                is_italic = True
             line = '<ul><li>' + curr + '</li>'
         else:
             is_bold = False
@@ -57,9 +53,7 @@ def handle_lists(line, in_list, in_list_append):
             m1 = re.match('(.*)__(.*)__(.*)', curr)
             if m1:
                 is_bold = True
-            m1 = re.match('(.*)_(.*)_(.*)', curr)
-            if m1:
-                is_italic = True
+            is_italic, m1 = method_name(curr, is_italic, m1)
             if is_bold:
                 curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
             if is_italic:
@@ -70,3 +64,10 @@ def handle_lists(line, in_list, in_list_append):
             in_list_append = True
             in_list = False
     return line, in_list, in_list_append
+
+
+def method_name(curr, is_italic, m1):
+    m1 = re.match('(.*)_(.*)_(.*)', curr)
+    if m1:
+        is_italic = True
+    return is_italic, m1
