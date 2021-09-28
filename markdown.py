@@ -35,13 +35,7 @@ def parse(markdown):
 
 def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
-    if not line_starts_with_asterisk_regex_match:
-        if in_list:
-            in_list_append = True
-            in_list = False  ### BEFORE RETURN
-        result = in_list, in_list_append, line
-        in_list, in_list_append, line = result
-    else:
+    if line_starts_with_asterisk_regex_match:
         if not in_list:
             in_list = True
             curr1 = line_starts_with_asterisk_regex_match.group(1)
@@ -74,4 +68,10 @@ def handle_lists(line, in_list, in_list_append):
             if italic:
                 curr1 = m_5.group(1) + '<em>' + m_5.group(2) + '</em>' + m_5.group(3)
             line = '<li>' + curr1 + '</li>'
+    else:
+        if in_list:
+            in_list_append = True
+            in_list = False
+        result = in_list, in_list_append, line
+        in_list, in_list_append, line = result
     return line, in_list, in_list_append
