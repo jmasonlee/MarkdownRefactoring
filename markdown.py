@@ -74,9 +74,6 @@ def add_emphasis(curr1) -> AnyStr:
         curr1 = m__.group(1) + emphasis_tag + m__.group(2) + ending_tag + m__.group(3)
     ###
     ###
-    emphasis_pattern = '(.*)_(.*)_(.*)'
-    emphasis_tag = '<em>'
-    ending_tag = '</em>'
-    curr1 = replace_markdown_with_html(ending_tag, curr1, emphasis_pattern, emphasis_tag)
+    curr1 = replace_markdown_with_html('</em>', curr1, '(.*)_(.*)_(.*)', '<em>')
     ###
     return curr1
