@@ -36,54 +36,85 @@ def parse(markdown):
 def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
     if not line_starts_with_asterisk_regex_match:
-        ###
-        in_list, in_list_append, line = method_name(in_list, in_list_append, line, line_starts_with_asterisk_regex_match)
-        ####
-    else:
-        ###
-        in_list, in_list_append, line = method_name(in_list, in_list_append, line, line_starts_with_asterisk_regex_match)
-        ####
-    return line, in_list, in_list_append
+        if line_starts_with_asterisk_regex_match:
+            if not in_list:
+                in_list = True
+                curr = line_starts_with_asterisk_regex_match.group(1)
 
+                m_3 = re.match('(.*)__(.*)__(.*)', curr)
+                if m_3:
+                    curr = m_3.group(1) + '<strong>' + m_3.group(2) + '</strong>' + m_3.group(3)
 
-def method_name(in_list, in_list_append, line, line_starts_with_asterisk_regex_match):
-    if line_starts_with_asterisk_regex_match: ### START
-        if not in_list:
-            in_list = True
-            curr = line_starts_with_asterisk_regex_match.group(1)
+                m_2 = re.match('(.*)_(.*)_(.*)', curr)
+                if m_2:
+                    curr = m_2.group(1) + '<em>' + m_2.group(2) + '</em>' + m_2.group(3)
 
-            m_3 = re.match('(.*)__(.*)__(.*)', curr)
-            if m_3:
-                curr = m_3.group(1) + '<strong>' + m_3.group(2) + '</strong>' + m_3.group(3)
+                line = '<ul><li>' + curr + '</li>'
+            else:
+                is_bold = False
+                is_italic = False
+                curr = line_starts_with_asterisk_regex_match.group(1)
 
-            m_2 = re.match('(.*)_(.*)_(.*)', curr)
-            if m_2:
-                curr = m_2.group(1) + '<em>' + m_2.group(2) + '</em>' + m_2.group(3)
+                m_1 = re.match('(.*)__(.*)__(.*)', curr)
+                if m_1:
+                    is_bold = True
 
-            line = '<ul><li>' + curr + '</li>'
+                m_ = re.match('(.*)_(.*)_(.*)', curr)
+                if m_:
+                    is_italic = True
+                m1 = m_
+
+                if is_bold:
+                    curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
+                if is_italic:
+                    curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
+                line = '<li>' + curr + '</li>'
         else:
-            is_bold = False
-            is_italic = False
-            curr = line_starts_with_asterisk_regex_match.group(1)
-
-            m_1 = re.match('(.*)__(.*)__(.*)', curr)
-            if m_1:
-                is_bold = True
-
-            m_ = re.match('(.*)_(.*)_(.*)', curr)
-            if m_:
-                is_italic = True
-            m1 = m_
-
-            if is_bold:
-                curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
-            if is_italic:
-                curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
-            line = '<li>' + curr + '</li>'
+            if in_list:
+                in_list_append = True
+                in_list = False  ### BEFORE RETURN
+            result = in_list, in_list_append, line
+            in_list, in_list_append, line = result
+        ####
     else:
-        if in_list:
-            in_list_append = True
-            in_list = False### BEFORE RETURN
-    return in_list, in_list_append, line
+        ###
+        if line_starts_with_asterisk_regex_match:  ### START
+            if not in_list:
+                in_list = True
+                curr1 = line_starts_with_asterisk_regex_match.group(1)
+
+                m__ = re.match('(.*)__(.*)__(.*)', curr1)
+                if m__:
+                    curr1 = m__.group(1) + '<strong>' + m__.group(2) + '</strong>' + m__.group(3)
+
+                m__1 = re.match('(.*)_(.*)_(.*)', curr1)
+                if m__1:
+                    curr1 = m__1.group(1) + '<em>' + m__1.group(2) + '</em>' + m__1.group(3)
+
+                line = '<ul><li>' + curr1 + '</li>'
+            else:
+                bold = False
+                italic = False
+                curr1 = line_starts_with_asterisk_regex_match.group(1)
+
+                m__2 = re.match('(.*)__(.*)__(.*)', curr1)
+                if m__2:
+                    bold = True
+
+                m_4 = re.match('(.*)_(.*)_(.*)', curr1)
+                if m_4:
+                    italic = True
+                m_5 = m_4
+
+                if bold:
+                    curr1 = m_5.group(1) + '<strong>' + m_5.group(2) + '</strong>' + m_5.group(3)
+                if italic:
+                    curr1 = m_5.group(1) + '<em>' + m_5.group(2) + '</em>' + m_5.group(3)
+                line = '<li>' + curr1 + '</li>'
+        else:
+            if in_list:
+                in_list_append = True
+                in_list = False  ### BEFORE RETURN
+    return line, in_list, in_list_append
 
 
