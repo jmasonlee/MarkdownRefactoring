@@ -51,8 +51,6 @@ def handle_lists(line, in_list, in_list_append):
         if in_list:
             in_list_append = True
             in_list = False
-        result = in_list, in_list_append, line
-        in_list, in_list_append, line = result
     return line, in_list, in_list_append
 
 
