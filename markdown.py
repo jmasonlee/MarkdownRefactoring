@@ -39,9 +39,7 @@ def handle_lists(line, in_list, in_list_append):
         if not in_list:
             in_list = True
             curr = line_starts_with_asterisk_regex_match.group(1)
-            m1 = re.match('(.*)__(.*)__(.*)', curr)
-            if m1:
-                curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
+            curr = method_name(curr)
 
             m_2 = re.match('(.*)_(.*)_(.*)', curr)
             if m_2:
@@ -72,5 +70,12 @@ def handle_lists(line, in_list, in_list_append):
             in_list_append = True
             in_list = False
     return line, in_list, in_list_append
+
+
+def method_name(curr):
+    m1 = re.match('(.*)__(.*)__(.*)', curr)
+    if m1:
+        curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
+    return curr
 
 
