@@ -53,14 +53,11 @@ def handle_lists(line, in_list, in_list_append):
 
 
 def italicize(line):
-    line_with_italics = re.match('(.*)_(.*)_(.*)', line)
+    emphasis_pattern = '(.*)_(.*)_(.*)'
+    line_with_italics = re.match(emphasis_pattern, line)
     if line_with_italics:
-        line = add_italics_to_emphasized_portion(line_with_italics)
+        line = line_with_italics.group(1) + '<em>' + line_with_italics.group(2) + '</em>' + line_with_italics.group(3)
     return line
-
-
-def add_italics_to_emphasized_portion(matching_line):
-    return matching_line.group(1) + '<em>' + matching_line.group(2) + '</em>' + matching_line.group(3)
 
 
 def add_emphasis(curr1) -> AnyStr:
