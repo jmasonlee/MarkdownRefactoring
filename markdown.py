@@ -40,7 +40,6 @@ def handle_lists(line, in_list, in_list_append):
 
             line = '<ul><li>' + curr1 + '</li>'
         else:
-            italic = False
             curr1 = line_starts_with_asterisk_regex_match.group(1)
 
             m_4 = re.match('(.*)_(.*)_(.*)', curr1)
