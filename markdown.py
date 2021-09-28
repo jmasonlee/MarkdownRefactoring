@@ -45,10 +45,8 @@ def handle_lists(line, in_list, in_list_append):
 
             m_4 = re.match('(.*)_(.*)_(.*)', curr1)
             if m_4:
-                italic = True
-
-            if italic:
                 curr1 = m_4.group(1) + '<em>' + m_4.group(2) + '</em>' + m_4.group(3)
+
             line = '<li>' + curr1 + '</li>'
     else:
         if in_list:
