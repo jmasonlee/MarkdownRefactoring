@@ -42,9 +42,7 @@ def handle_lists(line, in_list, in_list_append):
         else:
             curr1 = line_starts_with_asterisk_regex_match.group(1)
 
-            m_4 = re.match('(.*)_(.*)_(.*)', curr1)
-            if m_4:
-                curr1 = m_4.group(1) + '<em>' + m_4.group(2) + '</em>' + m_4.group(3)
+            curr1 = italicize(curr1)
 
             line = '<li>' + curr1 + '</li>'
     else:
@@ -52,6 +50,13 @@ def handle_lists(line, in_list, in_list_append):
             in_list_append = True
             in_list = False
     return line, in_list, in_list_append
+
+
+def italicize(line):
+    m_4 = re.match('(.*)_(.*)_(.*)', line)
+    if m_4:
+        line = m_4.group(1) + '<em>' + m_4.group(2) + '</em>' + m_4.group(3)
+    return line
 
 
 def add_emphasis(curr1) -> AnyStr:
