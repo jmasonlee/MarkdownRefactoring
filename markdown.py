@@ -50,7 +50,10 @@ def handle_lists(line, in_list, in_list_append):
             is_bold = False
             is_italic = False
             curr = line_starts_with_asterisk_regex_match.group(1)
-            is_bold = method_name(curr, is_bold)
+
+            m_1 = re.match('(.*)__(.*)__(.*)', curr)
+            if m_1:
+                is_bold = True
 
             m_ = re.match('(.*)_(.*)_(.*)', curr)
             if m_:
@@ -67,12 +70,5 @@ def handle_lists(line, in_list, in_list_append):
             in_list_append = True
             in_list = False
     return line, in_list, in_list_append
-
-
-def method_name(curr, is_bold):
-    m1 = re.match('(.*)__(.*)__(.*)', curr)
-    if m1:
-        is_bold = True
-    return is_bold
 
 
