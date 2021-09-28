@@ -33,8 +33,8 @@ def parse(markdown):
     return res
 
 
-def handle_lists(i, in_list, in_list_append):
-    line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', i)
+def handle_lists(line, in_list, in_list_append):
+    line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
     if line_starts_with_asterisk_regex_match:
         if not in_list:
             in_list = True
@@ -49,7 +49,7 @@ def handle_lists(i, in_list, in_list_append):
             if m1:
                 curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
                 is_italic = True
-            i = '<ul><li>' + curr + '</li>'
+            line = '<ul><li>' + curr + '</li>'
         else:
             is_bold = False
             is_italic = False
@@ -64,9 +64,9 @@ def handle_lists(i, in_list, in_list_append):
                 curr = m1.group(1) + '<strong>' + m1.group(2) + '</strong>' + m1.group(3)
             if is_italic:
                 curr = m1.group(1) + '<em>' + m1.group(2) + '</em>' + m1.group(3)
-            i = '<li>' + curr + '</li>'
+            line = '<li>' + curr + '</li>'
     else:
         if in_list:
             in_list_append = True
             in_list = False
-    return i, in_list, in_list_append
+    return line, in_list, in_list_append
