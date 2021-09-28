@@ -76,8 +76,4 @@ def handle_lists(line, in_list, in_list_append):
                 if italic:
                     curr1 = m_5.group(1) + '<em>' + m_5.group(2) + '</em>' + m_5.group(3)
                 line = '<li>' + curr1 + '</li>'
-        else:
-            if in_list:
-                in_list_append = True
-                in_list = False  ### BEFORE RETURN
     return line, in_list, in_list_append
