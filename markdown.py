@@ -63,7 +63,7 @@ def handle_lists(line, in_list, in_list_append):
                 italic = True
 
             if bold:
-                curr1 = m_4.group(1) + '<strong>' + m_4.group(2) + '</strong>' + m_4.group(3)
+                curr1 = m__2.group(1) + '<strong>' + m__2.group(2) + '</strong>' + m__2.group(3)
             if italic:
                 curr1 = m_4.group(1) + '<em>' + m_4.group(2) + '</em>' + m_4.group(3)
             line = '<li>' + curr1 + '</li>'
