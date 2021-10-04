@@ -20,8 +20,8 @@ def parse(markdown):
         if not m:
             new_i = '<p>' + new_i + '</p>'
 
+        new_i = add_emphasis(new_i)
         i = new_i
-        i = add_emphasis(new_i)
         if in_list_append:
             i = '</ul>' + i
             in_list_append = False
@@ -33,7 +33,6 @@ def parse(markdown):
 
 def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
-    new_line = ''
 
     if line_starts_with_asterisk_regex_match and in_list:
         in_list = True
