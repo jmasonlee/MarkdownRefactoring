@@ -17,21 +17,21 @@ def parse(markdown):
 
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
         list = ''
-        new_i = line
+        new_line = line
         while line_starts_with_asterisk_regex_match:
             # If Line is empty add normal list item
             # If line is empty, addemphasis
             if in_list:
                 line = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
                 list += line
-                new_i = line
+                new_line = line
                 break
             else:
                 in_list = True
                 line = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
                 list_item = line
                 list += line
-                new_i = '<ul>' + list_item
+                new_line = '<ul>' + list_item
                 break
             # Otherwise add an italicized list item
             # Grab the next line
@@ -42,20 +42,20 @@ def parse(markdown):
         elif in_list:
             in_list_append = True
             in_list = False
-            new_i = line
+            new_line = line
         elif line_starts_with_asterisk_regex_match:
             pass
 
-        m = re.match('<h|<ul|<p|<li', new_i)
+        m = re.match('<h|<ul|<p|<li', new_line)
         if not m:
-            line = wrap_string_in_tag(new_i, 'p')
-            new_i = line
+            line = wrap_string_in_tag(new_line, 'p')
+            new_line = line
 
-        new_i = add_emphasis(new_i)
+        new_line = add_emphasis(new_line)
         if in_list_append:
-            new_i = '</ul>' + new_i
+            new_line = '</ul>' + new_line
             in_list_append = False
-        res += new_i
+        res += new_line
     if in_list:
         res += '</ul>'
     return res
