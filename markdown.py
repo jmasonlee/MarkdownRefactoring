@@ -19,7 +19,8 @@ def parse(markdown):
         m = re.match('<h|<ul|<p|<li', new_i)
         i = new_i
         if not m:
-            i = '<p>' + i + '</p>'
+            new_i = '<p>' + i + '</p>'
+            i = new_i
         i = add_emphasis(i)
         if in_list_append:
             i = '</ul>' + i
