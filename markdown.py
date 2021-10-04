@@ -11,22 +11,22 @@ def parse(markdown):
         if re.match('###### (.*)', line):
             tag = 'h6'
             string = line[7:]
-            line = f'<{tag}>' + string + f'</{tag}>'
+            line = wrap_string_in_tag(string, tag)
         elif re.match('## (.*)', line):
             tag = 'h2'
             string = line[3:]
-            line = f'<{tag}>' + string + f'</{tag}>'
+            line = wrap_string_in_tag(string, tag)
         elif re.match('# (.*)', line):
             string = line[2:]
             tag = 'h1'
-            line = f'<{tag}>' + string + f'</{tag}>'
+            line = wrap_string_in_tag(string, tag)
 
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
         if line_starts_with_asterisk_regex_match and in_list:
             in_list = True
             string = italicize(line_starts_with_asterisk_regex_match.group(1))
             tag = 'li'
-            line = f'<{tag}>' + string + f'</{tag}>'
+            line = wrap_string_in_tag(string, tag)
             item = line
             new_i = item
         elif in_list:
@@ -37,7 +37,7 @@ def parse(markdown):
             in_list = True
             string = line_starts_with_asterisk_regex_match.group(1)
             tag = 'li'
-            line = f'<{tag}>' + string + f'</{tag}>'
+            line = wrap_string_in_tag(string, tag)
             list_item = line
             new_i = '<ul>' + list_item
         else:
@@ -46,7 +46,7 @@ def parse(markdown):
         if not m:
             string = new_i
             tag = 'p'
-            line = f'<{tag}>' + string + f'</{tag}>'
+            line = wrap_string_in_tag(string, tag)
             new_i = line
 
         new_i = add_emphasis(new_i)
@@ -57,6 +57,11 @@ def parse(markdown):
     if in_list:
         res += '</ul>'
     return res
+
+
+def wrap_string_in_tag(string, tag):
+    line = f'<{tag}>' + string + f'</{tag}>'
+    return line
 
 
 def add_emphasis(line) -> AnyStr:
