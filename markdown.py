@@ -21,11 +21,10 @@ def parse(markdown):
             new_i = '<p>' + new_i + '</p>'
 
         new_i = add_emphasis(new_i)
-        i = new_i
         if in_list_append:
-            i = '</ul>' + new_i
+            new_i = '</ul>' + new_i
             in_list_append = False
-        res += i
+        res += new_i
     if in_list:
         res += '</ul>'
     return res
