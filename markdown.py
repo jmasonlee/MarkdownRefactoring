@@ -9,7 +9,9 @@ def parse(markdown):
     in_list_append = False
     for line in lines:
         if re.match('###### (.*)', line):
-            line = '<h6>' + line[7:] + '</h6>'
+            tag = 'h6'
+            string = line[7:]
+            line = f'<{tag}>' + string + f'</{tag}>'
         elif re.match('## (.*)', line):
             line = '<h2>' + line[3:] + '</h2>'
         elif re.match('# (.*)', line):
@@ -18,7 +20,7 @@ def parse(markdown):
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
         if line_starts_with_asterisk_regex_match and in_list:
             in_list = True
-            item = '<li>' + italicize(line_starts_with_asterisk_regex_match.group(1)) + '</li>'
+            item = '<li>{0}</li>'.format(italicize(line_starts_with_asterisk_regex_match.group(1)))
             new_i = item
         elif in_list:
             in_list_append = True
