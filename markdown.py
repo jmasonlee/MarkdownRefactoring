@@ -65,15 +65,7 @@ def replace_markdown_with_html(ending_tag, line, pattern, tag):
 
 
 def add_emphasis(curr1) -> AnyStr:
-    ###
-    emphasis_pattern = '(.*)__(.*)__(.*)'
-    emphasis_tag = '<strong>'
-    ending_tag = '</strong>'
-    m__ = re.match(emphasis_pattern, curr1)
-    if m__:
-        curr1 = m__.group(1) + emphasis_tag + m__.group(2) + ending_tag + m__.group(3)
-    ###
-    ###
+    curr1 = replace_markdown_with_html('</strong>', curr1, '(.*)__(.*)__(.*)', '<strong>')
     curr1 = replace_markdown_with_html('</em>', curr1, '(.*)_(.*)_(.*)', '<em>')
-    ###
+
     return curr1
