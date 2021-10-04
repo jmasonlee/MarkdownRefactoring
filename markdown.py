@@ -16,11 +16,11 @@ def parse(markdown):
             line = wrap_string_in_tag(line[2:], 'h1')
 
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
+        list = ''
         if line_starts_with_asterisk_regex_match and in_list:
-            in_list = True
             line = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
-            item = line
-            new_i = item
+            list += line
+            new_i = line
         elif in_list:
             in_list_append = True
             in_list = False
@@ -29,9 +29,11 @@ def parse(markdown):
             in_list = True
             line = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
             list_item = line
+            list += line
             new_i = '<ul>' + list_item
         else:
             new_i = line
+
         m = re.match('<h|<ul|<p|<li', new_i)
         if not m:
             line = wrap_string_in_tag(new_i, 'p')
