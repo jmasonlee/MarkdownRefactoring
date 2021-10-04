@@ -58,14 +58,14 @@ def italicize(line):
 
 
 def replace_markdown_with_html(ending_tag, line, pattern, tag):
-    line_with_italics = re.match(pattern, line)
-    if line_with_italics:
-        line = line_with_italics.group(1) + tag + line_with_italics.group(2) + ending_tag + line_with_italics.group(3)
+    match = re.match(pattern, line)
+    if match:
+        line = match.group(1) + tag + match.group(2) + ending_tag + match.group(3)
     return line
 
 
 def add_emphasis(line) -> AnyStr:
     line = replace_markdown_with_html('</strong>', line, '(.*)__(.*)__(.*)', '<strong>')
-    line = replace_markdown_with_html('</em>', line, '(.*)_(.*)_(.*)', '<em>')
+    line = italicize(line)
 
     return line
