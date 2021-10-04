@@ -53,8 +53,7 @@ def handle_lists(line, in_list, in_list_append):
 
 
 def italicize(line):
-    line = replace_markdown_with_html('</em>', line, '(.*)_(.*)_(.*)', '<em>')
-    return line
+    return replace_markdown_with_html('</em>', line, '(.*)_(.*)_(.*)', '<em>')
 
 
 def replace_markdown_with_html(ending_tag, line, pattern, tag):
