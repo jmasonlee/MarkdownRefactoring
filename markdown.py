@@ -18,9 +18,8 @@ def parse(markdown):
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
         if line_starts_with_asterisk_regex_match and in_list:
             in_list = True
-            check_and_add_emphasis = italicize
-            list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
-            new_i = list_item
+            item = '<li>' + italicize(line_starts_with_asterisk_regex_match.group(1)) + '</li>'
+            new_i = item
         elif in_list:
             in_list_append = True
             in_list = False
@@ -43,13 +42,6 @@ def parse(markdown):
     if in_list:
         res += '</ul>'
     return res
-
-
-def format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match):
-    curr1 = line_starts_with_asterisk_regex_match.group(1)
-    curr1 = check_and_add_emphasis(curr1)
-    list_item = '<li>' + curr1 + '</li>'
-    return list_item
 
 
 def add_emphasis(line) -> AnyStr:
