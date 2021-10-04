@@ -31,29 +31,37 @@ def parse(markdown):
 
 def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
+    if in_list:
+        in_list, in_list_append, line = luc1(in_list, in_list_append, line, line_starts_with_asterisk_regex_match)
+    else:
+        in_list, in_list_append, line = luc1(in_list, in_list_append, line, line_starts_with_asterisk_regex_match)
+
+    return line, in_list, in_list_append
+
+
+def luc1(in_list, in_list_append, line, line_starts_with_asterisk_regex_match):
     if line_starts_with_asterisk_regex_match:
         if not in_list:
-            check_and_add_emphasis = add_emphasis
             in_list = True
-            curr1 = line_starts_with_asterisk_regex_match.group(1)
-
-            curr1 = check_and_add_emphasis(curr1)
-
-            list_item = '<li>' + curr1 + '</li>'
+            check_and_add_emphasis = add_emphasis
+            list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
             line = '<ul>' + list_item
         else:
             check_and_add_emphasis = italicize
-            curr1 = line_starts_with_asterisk_regex_match.group(1)
-
-            curr1 = check_and_add_emphasis(curr1)
-
-            list_item = '<li>' + curr1 + '</li>'
+            list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
             line = list_item
     else:
         if in_list:
             in_list_append = True
             in_list = False
-    return line, in_list, in_list_append
+    return in_list, in_list_append, line
+
+
+def format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match):
+    curr1 = line_starts_with_asterisk_regex_match.group(1)
+    curr1 = check_and_add_emphasis(curr1)
+    list_item = '<li>' + curr1 + '</li>'
+    return list_item
 
 
 def add_emphasis(line) -> AnyStr:
