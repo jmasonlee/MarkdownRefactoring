@@ -36,13 +36,16 @@ def parse(markdown):
             # Otherwise add an italicized list item
             # Grab the next line
             line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[i])
-
         #wrap list in ul
+        if not list:
+            list = new_line
         if line_starts_with_asterisk_regex_match and in_list:
             pass
         elif in_list:
             in_list_append = True
             in_list = False
+
+        new_line = list
 
         m = re.match('<h|<ul|<p|<li', new_line)
         if not m:
