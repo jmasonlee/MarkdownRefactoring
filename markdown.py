@@ -31,7 +31,7 @@ def parse(markdown):
                 line = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
                 list_item = line
                 list += '<ul>' + list_item
-                new_line = '<ul>' + list_item
+                new_line = list
                 break
             # Otherwise add an italicized list item
             # Grab the next line
