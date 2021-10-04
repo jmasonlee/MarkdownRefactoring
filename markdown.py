@@ -16,6 +16,7 @@ def parse(markdown):
             line = wrap_string_in_tag(line[2:], 'h1')
 
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
+
         list = ''
         new_line = line
         while line_starts_with_asterisk_regex_match:
@@ -32,6 +33,7 @@ def parse(markdown):
                 list += '<ul>' + list_item
             # Otherwise add an italicized list item
             # Grab the next line
+            line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[i])
             break
         #wrap list in ul
         if not list:
