@@ -7,7 +7,7 @@ def parse(markdown):
     res = ''
     in_list = False
     in_list_append = False
-    for line in lines:
+    for i, line in enumerate(lines):
         if re.match('###### (.*)', line):
             line = wrap_string_in_tag(line[7:], 'h6')
         elif re.match('## (.*)', line):
@@ -35,6 +35,7 @@ def parse(markdown):
                 break
             # Otherwise add an italicized list item
             # Grab the next line
+            line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
 
         #wrap list in ul
         if line_starts_with_asterisk_regex_match and in_list:
