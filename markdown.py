@@ -33,17 +33,18 @@ def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
     if line_starts_with_asterisk_regex_match:
         if not in_list:
+            check_and_add_emphasis = add_emphasis
             in_list = True
             curr1 = line_starts_with_asterisk_regex_match.group(1)
 
-            curr1 = add_emphasis(curr1)
+            curr1 = check_and_add_emphasis(curr1)
 
             list_item = '<li>' + curr1 + '</li>'
             line = '<ul>' + list_item
         else:
+            check_and_add_emphasis = italicize
             curr1 = line_starts_with_asterisk_regex_match.group(1)
 
-            check_and_add_emphasis = italicize
             curr1 = check_and_add_emphasis(curr1)
 
             list_item = '<li>' + curr1 + '</li>'
