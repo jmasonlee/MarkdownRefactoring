@@ -33,16 +33,12 @@ def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
     if in_list:
         if line_starts_with_asterisk_regex_match:
-            if not in_list:
-                pass
-            else:
-                check_and_add_emphasis = italicize
-                list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
-                line = list_item
+            check_and_add_emphasis = italicize
+            list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
+            line = list_item
         else:
-            if in_list:
-                in_list_append = True
-                in_list = False
+            in_list_append = True
+            in_list = False
     else:
         if line_starts_with_asterisk_regex_match:  ####
             if not in_list:
@@ -50,10 +46,6 @@ def handle_lists(line, in_list, in_list_append):
                 emphasis = add_emphasis
                 item = format_list_item(emphasis, line_starts_with_asterisk_regex_match)
                 line = '<ul>' + item
-            else:
-                emphasis = italicize
-                item = format_list_item(emphasis, line_starts_with_asterisk_regex_match)
-                line = item
         else:
             if in_list:
                 in_list_append = True
