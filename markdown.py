@@ -17,7 +17,6 @@ def parse(markdown):
 
         i, in_list, in_list_append, new_i = handle_lists(i, in_list, in_list_append)
         m = re.match('<h|<ul|<p|<li', new_i)
-        i = new_i
         if not m:
             new_i = '<p>' + i + '</p>'
             i = new_i
