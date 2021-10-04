@@ -52,15 +52,15 @@ def handle_lists(line, in_list, in_list_append):
     return line, in_list, in_list_append
 
 
-def italicize(line):
-    return replace_markdown_with_html('</em>', line, '(.*)_(.*)_(.*)', '<em>')
-
-
 def add_emphasis(line) -> AnyStr:
     line = bold(line)
     line = italicize(line)
 
     return line
+
+
+def italicize(line):
+    return replace_markdown_with_html('</em>', line, '(.*)_(.*)_(.*)', '<em>')
 
 
 def bold(line):
