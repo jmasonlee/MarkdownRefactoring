@@ -20,7 +20,6 @@ def parse(markdown):
             in_list = True
             check_and_add_emphasis = italicize
             list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
-            line = list_item
             new_i = list_item
         elif in_list:
             in_list_append = True
