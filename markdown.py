@@ -15,7 +15,28 @@ def parse(markdown):
         elif re.match('# (.*)', i):
             i = '<h1>' + i[2:] + '</h1>'
 
-        in_list, in_list_append, new_i = handle_lists(i, in_list, in_list_append)
+        line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', i)  ####
+        if line_starts_with_asterisk_regex_match and in_list:
+            in_list = True
+            check_and_add_emphasis = italicize
+            list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
+            line = list_item
+            new_line = list_item
+        elif in_list:
+            in_list_append = True
+            in_list = False
+            new_line = i
+        elif line_starts_with_asterisk_regex_match:
+            in_list = True
+
+            check_and_add_emphasis = add_emphasis
+            list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
+            line = '<ul>' + list_item
+            new_line = '<ul>' + list_item
+        else:
+            new_line = i  ####
+        result = in_list, in_list_append, new_line
+        in_list, in_list_append, new_i = result
         m = re.match('<h|<ul|<p|<li', new_i)
         if not m:
             new_i = '<p>' + new_i + '</p>'
@@ -28,32 +49,6 @@ def parse(markdown):
     if in_list:
         res += '</ul>'
     return res
-
-
-def handle_lists(line, in_list, in_list_append):
-    line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
-
-    if line_starts_with_asterisk_regex_match and in_list:
-        in_list = True
-        check_and_add_emphasis = italicize
-        list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
-        line = list_item
-        new_line = list_item
-    elif in_list:
-        in_list_append = True
-        in_list = False
-        new_line = line
-    elif line_starts_with_asterisk_regex_match:
-        in_list = True
-
-        check_and_add_emphasis = add_emphasis
-        list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
-        line = '<ul>' + list_item
-        new_line = '<ul>' + list_item
-    else:
-        new_line = line
-
-    return in_list, in_list_append, new_line
 
 
 def format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match):
