@@ -33,7 +33,8 @@ def parse(markdown):
                 list += '<ul>' + list_item
             # Otherwise add an italicized list item
             # Grab the next line
-            line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[i])
+            my_i = i
+            line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[my_i])
             break
         #wrap list in ul
         if not list:
