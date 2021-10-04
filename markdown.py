@@ -7,15 +7,15 @@ def parse(markdown):
     res = ''
     in_list = False
     in_list_append = False
-    for i in lines:
-        if re.match('###### (.*)', i):
-            i = '<h6>' + i[7:] + '</h6>'
-        elif re.match('## (.*)', i):
-            i = '<h2>' + i[3:] + '</h2>'
-        elif re.match('# (.*)', i):
-            i = '<h1>' + i[2:] + '</h1>'
+    for line in lines:
+        if re.match('###### (.*)', line):
+            line = '<h6>' + line[7:] + '</h6>'
+        elif re.match('## (.*)', line):
+            line = '<h2>' + line[3:] + '</h2>'
+        elif re.match('# (.*)', line):
+            line = '<h1>' + line[2:] + '</h1>'
 
-        line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', i)  ####
+        line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)  ####
         if line_starts_with_asterisk_regex_match and in_list:
             in_list = True
             check_and_add_emphasis = italicize
@@ -24,7 +24,7 @@ def parse(markdown):
         elif in_list:
             in_list_append = True
             in_list = False
-            new_i = i
+            new_i = line
         elif line_starts_with_asterisk_regex_match:
             in_list = True
 
@@ -33,7 +33,7 @@ def parse(markdown):
             line = '<ul>' + list_item
             new_i = '<ul>' + list_item
         else:
-            new_i = i  ####
+            new_i = line  ####
         result = in_list, in_list_append, new_i
         in_list, in_list_append, new_i = result
         m = re.match('<h|<ul|<p|<li', new_i)
