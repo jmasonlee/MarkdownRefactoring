@@ -28,8 +28,9 @@ def parse(markdown):
         elif line_starts_with_asterisk_regex_match:
             in_list = True
 
-            check_and_add_emphasis = add_emphasis
-            list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
+            curr1 = line_starts_with_asterisk_regex_match.group(1)
+            item = '<li>' + curr1 + '</li>'
+            list_item = item
             new_i = '<ul>' + list_item
         else:
             new_i = line
