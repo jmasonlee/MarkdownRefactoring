@@ -27,7 +27,7 @@ def parse(markdown):
             new_i = line
         elif line_starts_with_asterisk_regex_match:
             in_list = True
-            list_item = '<li>' + line_starts_with_asterisk_regex_match.group(1) + '</li>'
+            list_item = '<li>{0}</li>'.format(line_starts_with_asterisk_regex_match.group(1))
             new_i = '<ul>' + list_item
         else:
             new_i = line
