@@ -43,8 +43,6 @@ def parse(markdown):
             in_list_append = True
             in_list = False
             new_line = line
-        elif line_starts_with_asterisk_regex_match:
-            pass
 
         m = re.match('<h|<ul|<p|<li', new_line)
         if not m:
