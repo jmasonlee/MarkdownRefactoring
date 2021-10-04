@@ -18,13 +18,16 @@ def parse(markdown):
             line = f'<{tag}>' + string + f'</{tag}>'
         elif re.match('# (.*)', line):
             string = line[2:]
-            line = '<h1>' + string + '</h1>'
+            tag = 'h1'
+            line = f'<{tag}>' + string + f'</{tag}>'
 
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
         if line_starts_with_asterisk_regex_match and in_list:
             in_list = True
             string = italicize(line_starts_with_asterisk_regex_match.group(1))
-            item = '<li>{0}</li>'.format(string)
+            tag = 'li'
+            line = f'<{tag}>' + string + f'</{tag}>'
+            item = line
             new_i = item
         elif in_list:
             in_list_append = True
@@ -33,14 +36,18 @@ def parse(markdown):
         elif line_starts_with_asterisk_regex_match:
             in_list = True
             string = line_starts_with_asterisk_regex_match.group(1)
-            list_item = '<li>{0}</li>'.format(string)
+            tag = 'li'
+            line = f'<{tag}>' + string + f'</{tag}>'
+            list_item = line
             new_i = '<ul>' + list_item
         else:
             new_i = line
         m = re.match('<h|<ul|<p|<li', new_i)
         if not m:
             string = new_i
-            new_i = '<p>' + string + '</p>'
+            tag = 'p'
+            line = f'<{tag}>' + string + f'</{tag}>'
+            new_i = line
 
         new_i = add_emphasis(new_i)
         if in_list_append:
