@@ -24,16 +24,14 @@ def parse(markdown):
             if in_list:
                 line = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
                 list += line
-                break
             else:
                 in_list = True
                 line = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
                 list_item = line
                 list += '<ul>' + list_item
-                break
             # Otherwise add an italicized list item
             # Grab the next line
-            line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[i])
+            break
         #wrap list in ul
         if not list:
             list = new_line
