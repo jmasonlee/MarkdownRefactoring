@@ -65,7 +65,11 @@ def replace_markdown_with_html(ending_tag, line, pattern, tag):
 
 
 def add_emphasis(line) -> AnyStr:
-    line = replace_markdown_with_html('</strong>', line, '(.*)__(.*)__(.*)', '<strong>')
+    line = bold(line)
     line = italicize(line)
 
     return line
+
+
+def bold(line):
+    return replace_markdown_with_html('</strong>', line, '(.*)__(.*)__(.*)', '<strong>')
