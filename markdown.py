@@ -30,7 +30,7 @@ def parse(markdown):
 
 def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
-    new_line = line
+    new_line = ''
 
     if line_starts_with_asterisk_regex_match and in_list:
         in_list = True
@@ -48,6 +48,8 @@ def handle_lists(line, in_list, in_list_append):
         list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
         line = '<ul>' + list_item
         new_line = '<ul>' + list_item
+    else:
+        new_line = line
 
     return line, in_list, in_list_append, new_line
 
