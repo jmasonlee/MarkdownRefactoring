@@ -23,11 +23,12 @@ def parse(markdown):
             # If line is empty, addemphasis
             if in_list:
                 line = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
+                line = add_emphasis(line)
                 list += line
             else:
                 in_list = True
                 line = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
-                list_item = line
+                list_item = add_emphasis(line)
                 list += '<ul>' + list_item
             # Otherwise add an italicized list item
             # Grab the next line
