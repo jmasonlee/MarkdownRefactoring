@@ -38,12 +38,13 @@ def handle_lists(line, in_list, in_list_append):
 
             curr1 = add_emphasis(curr1)
 
-            li_ = '<li>' + curr1 + '</li>'
-            line = '<ul>' + li_
+            list_item = '<li>' + curr1 + '</li>'
+            line = '<ul>' + list_item
         else:
             curr1 = line_starts_with_asterisk_regex_match.group(1)
 
-            curr1 = italicize(curr1)
+            check_and_add_emphasis = italicize
+            curr1 = check_and_add_emphasis(curr1)
 
             list_item = '<li>' + curr1 + '</li>'
             line = list_item
