@@ -15,8 +15,7 @@ def parse(markdown):
         elif re.match('# (.*)', i) is not None:
             i = '<h1>' + i[2:] + '</h1>'
         i, in_list, in_list_append, new_i = handle_lists(i, in_list, in_list_append)
-
-        m = re.match('<h|<ul|<p|<li', i)
+        m = re.match('<h|<ul|<p|<li', new_i)
         if not m:
             i = '<p>' + i + '</p>'
         i = add_emphasis(i)
@@ -31,7 +30,7 @@ def parse(markdown):
 
 def handle_lists(line, in_list, in_list_append):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
-    new_line = ''
+    new_line = line
 
     if line_starts_with_asterisk_regex_match and in_list:
         in_list = True
