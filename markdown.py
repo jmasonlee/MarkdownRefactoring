@@ -23,7 +23,7 @@ def parse(markdown):
         new_i = add_emphasis(new_i)
         i = new_i
         if in_list_append:
-            i = '</ul>' + i
+            i = '</ul>' + new_i
             in_list_append = False
         res += i
     if in_list:
