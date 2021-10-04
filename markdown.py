@@ -42,7 +42,6 @@ def parse(markdown):
         elif in_list:
             in_list_append = True
             in_list = False
-            new_line = line
 
         m = re.match('<h|<ul|<p|<li', new_line)
         if not m:
