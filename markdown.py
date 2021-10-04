@@ -15,7 +15,7 @@ def parse(markdown):
         elif re.match('# (.*)', i):
             i = '<h1>' + i[2:] + '</h1>'
 
-        i, in_list, in_list_append, new_i = handle_lists(i, in_list, in_list_append)
+        in_list, in_list_append, new_i = handle_lists(i, in_list, in_list_append)
         m = re.match('<h|<ul|<p|<li', new_i)
         if not m:
             new_i = '<p>' + new_i + '</p>'
@@ -53,7 +53,7 @@ def handle_lists(line, in_list, in_list_append):
     else:
         new_line = line
 
-    return line, in_list, in_list_append, new_line
+    return in_list, in_list_append, new_line
 
 
 def format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match):
