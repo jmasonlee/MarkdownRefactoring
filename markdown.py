@@ -41,15 +41,10 @@ def handle_lists(line, in_list, in_list_append):
             in_list = False
     else:
         if line_starts_with_asterisk_regex_match:  ####
-            if not in_list:
-                in_list = True
-                emphasis = add_emphasis
-                item = format_list_item(emphasis, line_starts_with_asterisk_regex_match)
-                line = '<ul>' + item
-        else:
-            if in_list:
-                in_list_append = True
-                in_list = False  ####
+            in_list = True
+            emphasis = add_emphasis
+            item = format_list_item(emphasis, line_starts_with_asterisk_regex_match)
+            line = '<ul>' + item
 
     return line, in_list, in_list_append
 
