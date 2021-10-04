@@ -43,8 +43,8 @@ def handle_lists(line, in_list, in_list_append):
         in_list = True
 
         check_and_add_emphasis = add_emphasis
-        item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
-        line = '<ul>' + item
+        list_item = format_list_item(check_and_add_emphasis, line_starts_with_asterisk_regex_match)
+        line = '<ul>' + list_item
 
     return line, in_list, in_list_append
 
