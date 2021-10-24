@@ -21,10 +21,21 @@ def parse(markdown):
         list = ''
         new_line = line
         while line_starts_with_asterisk_regex_match:
-            in_list, line_starts_with_asterisk_regex_match, list = method_name(i, in_list,
-                                                                               line_starts_with_asterisk_regex_match,
-                                                                               lines, list, list2)
+            if in_list:
+                line1 = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
+                line1 = add_emphasis(line1)
+                list += line1
+                list2 += line1
+            else:
+                in_list = True
+                line1 = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
+                list_item = add_emphasis(line1)
+                list += '<ul>' + list_item
+                list2 += '<ul>' + list_item
+            my_i = i
+            line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[my_i])
             break
+
         #wrap list in ul
         if list:
             new_line = list
@@ -41,31 +52,14 @@ def parse(markdown):
             line = wrap_string_in_tag(new_line, 'p')
             new_line = line
 
-        new_line = add_emphasis(new_line)
         if in_list_append:
             new_line = '</ul>' + new_line
             in_list_append = False
+        new_line = add_emphasis(new_line)
         res += new_line
     if in_list:
         res += '</ul>'
     return res
-
-
-def method_name(i, in_list, line_starts_with_asterisk_regex_match, lines, list, list2):
-    if in_list:
-        line = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
-        line = add_emphasis(line)
-        list += line
-        list2 += line
-    else:
-        in_list = True
-        line = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
-        list_item = add_emphasis(line)
-        list += '<ul>' + list_item
-        list2 += '<ul>' + list_item
-    my_i = i
-    line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[my_i])
-    return in_list, line_starts_with_asterisk_regex_match, list
 
 
 def wrap_string_in_tag(string, tag):
