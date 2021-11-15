@@ -1,42 +1,50 @@
+import textwrap
 import unittest
+
+from approvaltests import verify_xml, Options
+from html5print import HTMLBeautifier
 
 from markdown import (
     parse,
 )
 
-from approvaltests.approvals import verify_all
+from approvaltests.approvals import verify_all, verify
 
 
 # Tests adapted from `problem-specifications//canonical-data.json`
 
+def remove_indentation_from(text: str) -> str:
+    cleaned = textwrap.dedent(text)
+    if cleaned.startswith("\n"):
+        cleaned = cleaned[1:]
+    return cleaned
+
 
 class MarkdownTest(unittest.TestCase):
     def test_all_combinations(self):
-        input_strings = ["""# Header 1
-## Header 2
-###### Header 6
-*  A thing 
-* __ A bold thing in a list __
-* _An italic thing in a list_ 
-    
-* __A bold thing __
-    
-* _An italic thing_
-    
- __A bold thing __
-    
- _An italic thing_
-    
-<h4> hello </h4>
-<ul>
-<li> One </li>
-</ul>
-<p> Hello! </p>
-"""]
-        results = []
-        for input_string in input_strings:
-            results.append(parse(input_string))
-        verify_all("markdown", results)
+        input_strings = remove_indentation_from("""
+            # Header 1
+            ## Header 2
+            ###### Header 6
+            *  A thing 
+            * __ A bold thing in a list __
+            * _An italic thing in a list_ 
+                
+            * __A bold thing __
+                
+            * _An italic thing_
+                
+             __A bold thing __
+                
+             _An italic thing_
+                
+            <h4> hello </h4>
+            <ul>
+            <li> One </li>
+            </ul>
+            <p> Hello! </p>
+            """)
+        verify(HTMLBeautifier.beautify(parse(input_strings), 4), options=Options().for_file.with_extension(".html"))
 
     def test_parses_normal_text_as_a_paragraph(self):
         self.assertEqual(

@@ -1,3 +1,0 @@
-markdown
-
-0) <h1>Header 1</h1><h2>Header 2</h2><h6>Header 6</h6><ul><li> A thing </li><li><em></em> A bold thing in a list <em></em></li><li><em>An italic thing in a list</em> </li></ul><p>    </p><ul><li><strong>A bold thing </strong></li></ul><p>    </p><ul><li><em>An italic thing</em></li></ul><p>    </p><p> <strong>A bold thing </strong></p><p>    </p><p> <em>An italic thing</em></p><p>    </p><h4> hello </h4><ul><li> One </li><p></ul></p><p> Hello! </p><p></p>
