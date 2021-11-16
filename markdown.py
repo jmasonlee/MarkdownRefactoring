@@ -14,7 +14,8 @@ def parse(markdown):
 
         list = ''
         new_line = line
-        while line_starts_with_asterisk_regex_match:
+        my_i = i
+        if line_starts_with_asterisk_regex_match:
             if in_list:
                 line1 = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
                 line1 = add_emphasis(line1)
@@ -24,10 +25,7 @@ def parse(markdown):
                 line1 = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
                 list_item = add_emphasis(line1)
                 list += '<ul>' + list_item
-            my_i = i
             line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[my_i])
-            break
-
         #wrap list in ul
         if list:
             new_line = list
