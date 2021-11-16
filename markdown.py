@@ -27,11 +27,8 @@ def parse(markdown):
             new_line = wrap_string_in_tag(new_line, 'p')
 
         if in_list and not line_starts_with_asterisk_regex_match:
-            in_list_append = True
             in_list = False
-        if in_list_append:
             new_line = '</ul>' + new_line
-            in_list_append = False
         res += add_emphasis(new_line)
     if in_list:
         res += '</ul>'
