@@ -49,8 +49,7 @@ def parse(markdown):
         if in_list_append:
             new_line = '</ul>' + new_line
             in_list_append = False
-        new_line = add_emphasis(new_line)
-        res += new_line
+        res += add_emphasis(new_line)
     if in_list:
         res += '</ul>'
     return res
