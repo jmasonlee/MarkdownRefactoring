@@ -13,16 +13,15 @@ def parse(markdown):
     result = ''
     in_list = False
     for line in markdown.split('\n'):
-        in_list, new_line = applesauce_for_real(in_list, line)
+        in_list, new_line = parse_line(in_list, line)
         result += new_line
     result += close_list(in_list)
     return result
 
 
-def applesauce_for_real(in_list, line):
-    line = header_things(line)
-    new_line = line
-    line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
+def parse_line(in_list, line):
+    new_line = parse_headers(line)
+    line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', new_line)
     if line_starts_with_asterisk_regex_match:
         match = line_starts_with_asterisk_regex_match.group(1)
         if in_list:
@@ -40,7 +39,7 @@ def applesauce_for_real(in_list, line):
     return in_list, new_line
 
 
-def header_things(line: str) -> str:
+def parse_headers(line: str) -> str:
     if re.match('###### (.*)', line):
         line = wrap_string_in_tag(line[7:], 'h6')
     elif re.match('## (.*)', line):
