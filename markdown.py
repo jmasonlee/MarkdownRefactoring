@@ -21,9 +21,7 @@ def parse(markdown):
                 new_line = '<ul>' + add_emphasis(wrap_string_in_tag(match, 'li'))
             in_list = True
 
-        if line_starts_with_asterisk_regex_match and in_list:
-            pass
-        elif in_list:
+        if in_list and not line_starts_with_asterisk_regex_match:
             in_list_append = True
             in_list = False
 
