@@ -10,24 +10,19 @@ def parse(markdown):
     for i, line in enumerate(lines):
         line = header_things(line)
 
+        new_line = line
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
 
-        list = ''
-        new_line = line
         if line_starts_with_asterisk_regex_match:
             if in_list:
                 line1 = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
                 line1 = add_emphasis(line1)
-                list += line1
+                new_line = line1
             else:
                 in_list = True
                 line1 = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
                 list_item = add_emphasis(line1)
-                list += '<ul>' + list_item
-
-        #wrap list in ul
-        if list:
-            new_line = list
+                new_line = '<ul>' + list_item
 
         if line_starts_with_asterisk_regex_match and in_list:
             pass
