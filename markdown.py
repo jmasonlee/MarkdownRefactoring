@@ -21,14 +21,14 @@ def parse(markdown):
                 new_line = '<ul>' + add_emphasis(wrap_string_in_tag(match, 'li'))
             in_list = True
 
-        if in_list and not line_starts_with_asterisk_regex_match:
-            in_list_append = True
-            in_list = False
 
         starts_with_tag = re.match('<h|<ul|<p|<li', new_line)
         if not starts_with_tag:
             new_line = wrap_string_in_tag(new_line, 'p')
 
+        if in_list and not line_starts_with_asterisk_regex_match:
+            in_list_append = True
+            in_list = False
         if in_list_append:
             new_line = '</ul>' + new_line
             in_list_append = False
