@@ -2,37 +2,42 @@ import re
 from typing import AnyStr
 
 
-def parse(markdown):
-    lines = markdown.split('\n')
-    res = ''
-    in_list = False
-    for i, line in enumerate(lines):
-        line = header_things(line)
-
-        new_line = line
-        line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
-
-        if line_starts_with_asterisk_regex_match:
-            match = line_starts_with_asterisk_regex_match.group(1)
-            if in_list:
-                new_line = add_emphasis(wrap_string_in_tag(italicize(match), 'li'))
-            else:
-                new_line = '<ul>' + add_emphasis(wrap_string_in_tag(match, 'li'))
-            in_list = True
-
-
-        starts_with_tag = re.match('<h|<ul|<p|<li', new_line)
-        if not starts_with_tag:
-            new_line = wrap_string_in_tag(new_line, 'p')
-
-        if in_list and not line_starts_with_asterisk_regex_match:
-            in_list = False
-            new_line = '</ul>' + new_line
-
-        res += add_emphasis(new_line)
+def close_list(in_list: bool) -> str:
     if in_list:
-        res += '</ul>'
-    return res
+        return '</ul>'
+    else:
+        return ""
+
+
+def parse(markdown):
+    result = ''
+    in_list = False
+    for line in markdown.split('\n'):
+        in_list, new_line = applesauce_for_real(in_list, line)
+        result += new_line
+    result += close_list(in_list)
+    return result
+
+
+def applesauce_for_real(in_list, line):
+    line = header_things(line)
+    new_line = line
+    line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
+    if line_starts_with_asterisk_regex_match:
+        match = line_starts_with_asterisk_regex_match.group(1)
+        if in_list:
+            new_line = add_emphasis(wrap_string_in_tag(italicize(match), 'li'))
+        else:
+            new_line = '<ul>' + add_emphasis(wrap_string_in_tag(match, 'li'))
+        in_list = True
+    starts_with_tag = re.match('<h|<ul|<p|<li', new_line)
+    if not starts_with_tag:
+        new_line = wrap_string_in_tag(new_line, 'p')
+    if in_list and not line_starts_with_asterisk_regex_match:
+        in_list = False
+        new_line = '</ul>' + new_line
+    new_line = add_emphasis(new_line)
+    return in_list, new_line
 
 
 def header_things(line: str) -> str:
