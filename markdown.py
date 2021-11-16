@@ -6,7 +6,6 @@ def parse(markdown):
     lines = markdown.split('\n')
     res = ''
     in_list = False
-    in_list_append = False
     for i, line in enumerate(lines):
         line = header_things(line)
 
@@ -29,6 +28,7 @@ def parse(markdown):
         if in_list and not line_starts_with_asterisk_regex_match:
             in_list = False
             new_line = '</ul>' + new_line
+
         res += add_emphasis(new_line)
     if in_list:
         res += '</ul>'
