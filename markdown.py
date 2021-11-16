@@ -15,8 +15,7 @@ def parse(markdown):
 
         if line_starts_with_asterisk_regex_match:
             if in_list:
-                new_line = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
-                new_line = add_emphasis(new_line)
+                new_line = add_emphasis(wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li'))
             else:
                 in_list = True
                 new_line = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
