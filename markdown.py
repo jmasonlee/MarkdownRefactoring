@@ -22,6 +22,9 @@ def parse(markdown):
 def parse_line(in_list, line):
     new_line = parse_headers(line)
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', new_line)
+    starts_with_tag = re.match('<h|<ul|<p|<li', new_line)
+    if not starts_with_tag:
+        new_line = wrap_string_in_tag(new_line, 'p')
     if line_starts_with_asterisk_regex_match:
         match = line_starts_with_asterisk_regex_match.group(1)
         if in_list:
@@ -29,9 +32,6 @@ def parse_line(in_list, line):
         else:
             new_line = '<ul>' + add_emphasis(wrap_string_in_tag(match, 'li'))
         in_list = True
-    starts_with_tag = re.match('<h|<ul|<p|<li', new_line)
-    if not starts_with_tag:
-        new_line = wrap_string_in_tag(new_line, 'p')
     if in_list and not line_starts_with_asterisk_regex_match:
         in_list = False
         new_line = '</ul>' + new_line
