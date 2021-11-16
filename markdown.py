@@ -15,13 +15,12 @@ def parse(markdown):
 
         if line_starts_with_asterisk_regex_match:
             if in_list:
-                line1 = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
-                line1 = add_emphasis(line1)
-                new_line = line1
+                new_line = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
+                new_line = add_emphasis(new_line)
             else:
                 in_list = True
-                line1 = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
-                list_item = add_emphasis(line1)
+                new_line = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
+                list_item = add_emphasis(new_line)
                 new_line = '<ul>' + list_item
 
         if line_starts_with_asterisk_regex_match and in_list:
