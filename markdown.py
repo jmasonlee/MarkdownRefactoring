@@ -7,7 +7,6 @@ def parse(markdown):
     res = ''
     in_list = False
     in_list_append = False
-    list2 = ''
     for i, line in enumerate(lines):
         line = header_things(line)
 
@@ -20,13 +19,11 @@ def parse(markdown):
                 line1 = wrap_string_in_tag(italicize(line_starts_with_asterisk_regex_match.group(1)), 'li')
                 line1 = add_emphasis(line1)
                 list += line1
-                list2 += line1
             else:
                 in_list = True
                 line1 = wrap_string_in_tag(line_starts_with_asterisk_regex_match.group(1), 'li')
                 list_item = add_emphasis(line1)
                 list += '<ul>' + list_item
-                list2 += '<ul>' + list_item
             my_i = i
             line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', lines[my_i])
             break
@@ -40,7 +37,6 @@ def parse(markdown):
         elif in_list:
             in_list_append = True
             in_list = False
-            list2 = ''
 
         starts_with_tag = re.match('<h|<ul|<p|<li', new_line)
         if not starts_with_tag:
