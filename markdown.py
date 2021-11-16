@@ -9,12 +9,7 @@ def parse(markdown):
     in_list_append = False
     list2 = ''
     for i, line in enumerate(lines):
-        if re.match('###### (.*)', line):
-            line = wrap_string_in_tag(line[7:], 'h6')
-        elif re.match('## (.*)', line):
-            line = wrap_string_in_tag(line[3:], 'h2')
-        elif re.match('# (.*)', line):
-            line = wrap_string_in_tag(line[2:], 'h1')
+        line = header_things(line)
 
         line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', line)
 
@@ -47,10 +42,9 @@ def parse(markdown):
             in_list = False
             list2 = ''
 
-        m = re.match('<h|<ul|<p|<li', new_line)
-        if not m:
-            line = wrap_string_in_tag(new_line, 'p')
-            new_line = line
+        starts_with_tag = re.match('<h|<ul|<p|<li', new_line)
+        if not starts_with_tag:
+            new_line = wrap_string_in_tag(new_line, 'p')
 
         if in_list_append:
             new_line = '</ul>' + new_line
@@ -60,6 +54,16 @@ def parse(markdown):
     if in_list:
         res += '</ul>'
     return res
+
+
+def header_things(line: str) -> str:
+    if re.match('###### (.*)', line):
+        line = wrap_string_in_tag(line[7:], 'h6')
+    elif re.match('## (.*)', line):
+        line = wrap_string_in_tag(line[3:], 'h2')
+    elif re.match('# (.*)', line):
+        line = wrap_string_in_tag(line[2:], 'h1')
+    return line
 
 
 def wrap_string_in_tag(string, tag):
