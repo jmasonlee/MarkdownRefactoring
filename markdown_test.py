@@ -8,7 +8,7 @@ from markdown import (
     parse,
 )
 
-from approvaltests.approvals import verify_all, verify
+from approvaltests.approvals import verify_all, veri fy
 
 
 # Tests adapted from `problem-specifications//canonical-data.json`
