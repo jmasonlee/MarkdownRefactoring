@@ -12,11 +12,15 @@ def close_list(in_list: bool) -> str:
 def parse(markdown):
     result = ''
     in_list = False
-    for line in markdown.split('\n'):
+    for line in split_markdown_into_lines(markdown):
         in_list, new_line = parse_line(in_list, line)
         result += new_line
     result += close_list(in_list)
     return result
+
+
+def split_markdown_into_lines(markdown):
+    return markdown.split('\n')
 
 
 def parse_line(in_list, line):
