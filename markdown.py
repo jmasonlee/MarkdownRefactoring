@@ -8,10 +8,7 @@ def parse(markdown):
     for line in split_markdown_into_lines(markdown):
         in_list, new_line = parse_line(in_list, line)
         result += new_line
-    if in_list:
-        result1 = '</ul>'
-    else:
-        result1 = ""
+    result1 = '</ul>' if in_list else ""
     result += result1
     return result
 
