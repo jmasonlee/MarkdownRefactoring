@@ -2,8 +2,8 @@ import re
 from typing import AnyStr
 
 
-def close_list(in_list: bool) -> str:
-    if in_list:
+def close_list(last_line_was_in_a_list: bool) -> str:
+    if last_line_was_in_a_list:
         return '</ul>'
     else:
         return ""
