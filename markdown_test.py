@@ -1,14 +1,13 @@
 import textwrap
 import unittest
 
-from approvaltests import verify_xml, Options
+from approvaltests import Options
+from approvaltests.approvals import verify
 from html5print import HTMLBeautifier
 
 from markdown import (
     parse,
 )
-
-from approvaltests.approvals import verify_all, veri fy
 
 
 # Tests adapted from `problem-specifications//canonical-data.json`
