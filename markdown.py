@@ -1,14 +1,17 @@
 import re
+from collections import namedtuple
 from typing import AnyStr
 
-
+HTMLLine = namedtuple("HTMLLine", "line_in_html needs_list_closure")
 
 def parse(markdown):
     result = ''
     last_line_was_in_a_list = False
+
     for line in split_markdown_into_lines(markdown):
         last_line_was_in_a_list, new_line = parse_line(last_line_was_in_a_list, line)
         result += new_line
+
     if last_line_was_in_a_list:
         result = close_list(result)
     return result
