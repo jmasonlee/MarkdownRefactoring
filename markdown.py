@@ -62,8 +62,7 @@ def parse_headers(line: str) -> str:
 
 
 def wrap_string_in_tag(string, tag):
-    line = f'<{tag}>' + string + f'</{tag}>'
-    return line
+    return f'<{tag}>' + string + f'</{tag}>'
 
 
 def add_emphasis(line) -> AnyStr:
