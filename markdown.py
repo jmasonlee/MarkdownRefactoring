@@ -4,11 +4,11 @@ from typing import AnyStr
 
 def parse(markdown):
     result = ''
-    in_list = False
+    last_line_was_in_a_list = False
     for line in split_markdown_into_lines(markdown):
-        in_list, new_line = parse_line(in_list, line)
+        last_line_was_in_a_list, new_line = parse_line(last_line_was_in_a_list, line)
         result += new_line
-    result1 = '</ul>' if in_list else ""
+    result1 = '</ul>' if last_line_was_in_a_list else ""
     result += result1
     return result
 
