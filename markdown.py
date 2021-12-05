@@ -2,6 +2,7 @@ import re
 from typing import AnyStr
 
 
+
 def parse(markdown):
     result = ''
     last_line_was_in_a_list = False
@@ -9,8 +10,12 @@ def parse(markdown):
         last_line_was_in_a_list, new_line = parse_line(last_line_was_in_a_list, line)
         result += new_line
     if last_line_was_in_a_list:
-        result1 = '</ul>'
-        result += result1
+        result = close_list(result)
+    return result
+
+
+def close_list(result):
+    result += '</ul>'
     return result
 
 
