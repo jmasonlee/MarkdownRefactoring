@@ -2,20 +2,17 @@ import re
 from typing import AnyStr
 
 
-def close_list(last_line_was_in_a_list: bool) -> str:
-    if last_line_was_in_a_list:
-        return '</ul>'
-    else:
-        return ""
-
-
 def parse(markdown):
     result = ''
     in_list = False
     for line in split_markdown_into_lines(markdown):
         in_list, new_line = parse_line(in_list, line)
         result += new_line
-    result += close_list(in_list)
+    if in_list:
+        result1 = '</ul>'
+    else:
+        result1 = ""
+    result += result1
     return result
 
 
