@@ -9,7 +9,7 @@ def parse(markdown):
     result = ''
     last_line_was_in_a_list = False
 
-    def get_result():
+    def result_and_needs_list_closure():
         return result, last_line_was_in_a_list
 
     def set_result(result2, last):
@@ -18,14 +18,14 @@ def parse(markdown):
         last_line_was_in_a_list = last
 
     for line in split_markdown_into_lines(markdown):
-        last_line_was_in_a_list, new_line = parse_line(get_result()[1], line)
-        new_result = get_result()[0] + new_line
-        set_result(new_result, get_result()[1])
+        last_line_was_in_a_list, new_line = parse_line(result_and_needs_list_closure()[1], line)
+        new_result = result_and_needs_list_closure()[0] + new_line
+        set_result(new_result, result_and_needs_list_closure()[1])
 
-    if get_result()[1]:
-        set_result(close_list(get_result()[0]), get_result()[1])
+    if result_and_needs_list_closure()[1]:
+        set_result(close_list(result_and_needs_list_closure()[0]), result_and_needs_list_closure()[1])
 
-    return get_result()[0]
+    return result_and_needs_list_closure()[0]
 
 
 def close_list(result):
