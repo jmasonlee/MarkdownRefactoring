@@ -23,6 +23,7 @@ def parse(markdown):
 
     if last_line_was_in_a_list:
         set_result(close_list(get_result()))
+
     return get_result()
 
 
