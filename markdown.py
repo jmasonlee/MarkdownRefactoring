@@ -14,7 +14,7 @@ def parse(markdown):
         new_line = HTMLLine(new_line, last_line_was_in_a_list)
         result += new_line.line
 
-    if last_line_was_in_a_list:
+    if new_line.needs_list_closure:
         result = close_list(result)
     return result
 
