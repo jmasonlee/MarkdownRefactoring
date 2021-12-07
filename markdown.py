@@ -2,7 +2,8 @@ import re
 from collections import namedtuple
 from typing import AnyStr
 
-HTMLLine = namedtuple("HTMLLine", "line_in_html needs_list_closure")
+HTMLLine = namedtuple("HTMLLine", "line needs_list_closure")
+
 
 def parse(markdown):
     result = ''
