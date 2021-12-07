@@ -9,13 +9,21 @@ def parse(markdown):
     result = ''
     last_line_was_in_a_list = False
 
+    def get_result():
+        return result
+
+    def set_result(result2):
+        nonlocal result
+        result = result2
+
     for line in split_markdown_into_lines(markdown):
         last_line_was_in_a_list, new_line = parse_line(last_line_was_in_a_list, line)
-        result += new_line
+        new_result = get_result() + new_line
+        set_result(new_result)
 
     if last_line_was_in_a_list:
-        result = close_list(result)
-    return result
+        set_result(close_list(get_result()))
+    return get_result()
 
 
 def close_list(result):
