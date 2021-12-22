@@ -10,10 +10,6 @@ def parse(markdown):
     last_line_was_in_a_list = False
     output = HTML(result, last_line_was_in_a_list)
 
-    def result_and_needs_list_closure():
-        # return result, last_line_was_in_a_list
-        return output.line, output.needs_list_closure
-
     def set_result(result2, last):
         nonlocal result, last_line_was_in_a_list, output
         result = result2
@@ -21,14 +17,26 @@ def parse(markdown):
         output = HTML(result2, last)
 
     for line in split_markdown_into_lines(markdown):
-        last_line_was_in_a_list, new_line = parse_line(result_and_needs_list_closure()[1], line)
-        new_result = result_and_needs_list_closure()[0] + new_line
+        # return result, last_line_was_in_a_list
+        result2 = output.line, output.needs_list_closure
+        last_line_was_in_a_list, new_line = parse_line(result2[1], line)
+        # return result, last_line_was_in_a_list
+        result4 = output.line, output.needs_list_closure
+        new_result = result4[0] + new_line
         set_result(new_result, last_line_was_in_a_list)
 
-    if result_and_needs_list_closure()[1]:
-        set_result(close_list(result_and_needs_list_closure()[0]), result_and_needs_list_closure()[1])
+    # return result, last_line_was_in_a_list
+    result5 = output.line, output.needs_list_closure
+    if result5[1]:
+        # return result, last_line_was_in_a_list
+        result1 = output.line, output.needs_list_closure
+        # return result, last_line_was_in_a_list
+        result3 = output.line, output.needs_list_closure
+        set_result(close_list(result1[0]), result3[1])
 
-    return result_and_needs_list_closure()[0]
+    # return result, last_line_was_in_a_list
+    result6 = output.line, output.needs_list_closure
+    return result6[0]
 
 
 def close_list(result):
