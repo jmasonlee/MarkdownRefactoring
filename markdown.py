@@ -8,19 +8,23 @@ HTML = namedtuple("HTMLLine", "line needs_list_closure")
 def parse(markdown):
     result = ''
     last_line_was_in_a_list = False
+    output = HTML(result, last_line_was_in_a_list)
 
     def result_and_needs_list_closure():
-        return result, last_line_was_in_a_list
+        #return result, last_line_was_in_a_list
+        return output.line, output.needs_list_closure
 
     def set_result(result2, last):
-        nonlocal result, last_line_was_in_a_list
+        nonlocal result, last_line_was_in_a_list, output
         result = result2
         last_line_was_in_a_list = last
+        output = HTML(result2, last)
+
 
     for line in split_markdown_into_lines(markdown):
         last_line_was_in_a_list, new_line = parse_line(result_and_needs_list_closure()[1], line)
         new_result = result_and_needs_list_closure()[0] + new_line
-        set_result(new_result, result_and_needs_list_closure()[1])
+        set_result(new_result, last_line_was_in_a_list)
 
     if result_and_needs_list_closure()[1]:
         set_result(close_list(result_and_needs_list_closure()[0]), result_and_needs_list_closure()[1])
