@@ -6,9 +6,8 @@ HTML = namedtuple("HTMLLine", "line needs_list_closure")
 
 
 def parse(markdown):
-    result = ''
     last_line_was_in_a_list = False
-    output = HTML(result, last_line_was_in_a_list)
+    output = HTML('', last_line_was_in_a_list)
 
     def set_result(result2, last):
         nonlocal  last_line_was_in_a_list, output
