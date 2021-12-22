@@ -11,7 +11,7 @@ def parse(markdown):
     output = HTML(result, last_line_was_in_a_list)
 
     def result_and_needs_list_closure():
-        #return result, last_line_was_in_a_list
+        # return result, last_line_was_in_a_list
         return output.line, output.needs_list_closure
 
     def set_result(result2, last):
@@ -19,7 +19,6 @@ def parse(markdown):
         result = result2
         last_line_was_in_a_list = last
         output = HTML(result2, last)
-
 
     for line in split_markdown_into_lines(markdown):
         last_line_was_in_a_list, new_line = parse_line(result_and_needs_list_closure()[1], line)
