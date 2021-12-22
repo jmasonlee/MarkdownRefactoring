@@ -24,9 +24,7 @@ def parse(markdown):
     if output.needs_list_closure:
         set_result(close_list(output.line), output.needs_list_closure)
 
-    # return result, last_line_was_in_a_list
-    result6 = output.line, output.needs_list_closure
-    return result6[0]
+    return output.line
 
 
 def close_list(result):
