@@ -18,8 +18,7 @@ def parse(markdown):
 
     for line in split_markdown_into_lines(markdown):
         last_line_was_in_a_list, new_line = parse_line(output.needs_list_closure, line)
-        result4 = output.line, output.needs_list_closure
-        new_result = result4[0] + new_line
+        new_result = output.line + new_line
         set_result(new_result, last_line_was_in_a_list)
 
     # return result, last_line_was_in_a_list
