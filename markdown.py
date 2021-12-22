@@ -12,7 +12,6 @@ def parse(markdown):
 
     def set_result(result2, last):
         nonlocal result, last_line_was_in_a_list, output
-        result = result2
         last_line_was_in_a_list = last
         output = HTML(result2, last)
 
