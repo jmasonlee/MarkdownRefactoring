@@ -9,7 +9,9 @@ def parse(markdown):
     output = HTML("", False)
 
     for line in split_markdown_into_lines(markdown):
-        last_line_was_in_a_list, new_line = parse_line(output.needs_list_closure, line)
+        line1 = parse_headers(line)
+        line1 = handle_paragraphs(line1)
+        last_line_was_in_a_list, new_line = handle_list(output.needs_list_closure, line1, add_emphasis)
         new_result = output.line + new_line
         output = HTML(new_result, last_line_was_in_a_list)
 
@@ -26,12 +28,6 @@ def close_list(result):
 
 def split_markdown_into_lines(markdown):
     return markdown.split('\n')
-
-
-def parse_line(in_list, line):
-    new_line = parse_headers(line)
-    new_line = handle_paragraphs(new_line)
-    return handle_list(in_list, new_line, add_emphasis)
 
 
 def handle_list(in_list, new_line, post_process):
