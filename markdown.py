@@ -8,10 +8,6 @@ HTML = namedtuple("HTMLLine", "line needs_list_closure")
 def parse(markdown):
     output = HTML("", False)
 
-    def set_result(result2, last):
-        nonlocal output
-        output = HTML(result2, last)
-
     for line in split_markdown_into_lines(markdown):
         last_line_was_in_a_list, new_line = parse_line(output.needs_list_closure, line)
         new_result = output.line + new_line
