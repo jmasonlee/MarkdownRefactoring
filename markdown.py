@@ -18,7 +18,7 @@ def parse(markdown):
         output = HTML(new_result, last_line_was_in_a_list)
 
     if output.needs_list_closure:
-        set_result(close_list(output.line), output.needs_list_closure)
+        output = HTML(close_list(output.line), output.needs_list_closure)
 
     return output.line
 
