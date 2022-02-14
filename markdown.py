@@ -6,16 +6,16 @@ ParsedMarkdown = namedtuple("HTMLLine", "line needs_list_closure")
 
 
 def parse(markdown):
-    output = ParsedMarkdown("", False)
+    parsed_markdown = ParsedMarkdown("", False)
 
     for line in split_markdown_into_lines(markdown):
-        output = parse_line(line, output)
+        parsed_markdown = parse_line(line, parsed_markdown)
 
-    if output.needs_list_closure:
-        output = ParsedMarkdown(close_list(output.line), output.needs_list_closure)
+    if parsed_markdown.needs_list_closure:
+        parsed_markdown = ParsedMarkdown(close_list(parsed_markdown.line), parsed_markdown.needs_list_closure)
 
-    my_output = output.line
-    return my_output
+    output = parsed_markdown.line
+    return output
 
 
 def parse_line(line, output):
