@@ -2,17 +2,17 @@ import re
 from collections import namedtuple
 from typing import AnyStr
 
-HTML = namedtuple("HTMLLine", "line needs_list_closure")
+ParsedMarkdown = namedtuple("HTMLLine", "line needs_list_closure")
 
 
 def parse(markdown):
-    output = HTML("", False)
+    output = ParsedMarkdown("", False)
 
     for line in split_markdown_into_lines(markdown):
         output = parse_line(line, output)
 
     if output.needs_list_closure:
-        output = HTML(close_list(output.line), output.needs_list_closure)
+        output = ParsedMarkdown(close_list(output.line), output.needs_list_closure)
 
     return output.line
 
@@ -22,7 +22,7 @@ def parse_line(line, output):
     line1 = handle_paragraphs(line1)
     last_line_was_in_a_list, new_line = handle_list(output.needs_list_closure, line1, add_emphasis)
     new_result = output.line + new_line
-    output = HTML(new_result, last_line_was_in_a_list)
+    output = ParsedMarkdown(new_result, last_line_was_in_a_list)
     return output
 
 
