@@ -11,16 +11,11 @@ def parse(markdown):
     for line in split_markdown_into_lines(markdown):
         parsed_markdown = parse_line(line, parsed_markdown)
 
-    parsed_markdown = foo(parsed_markdown)
+    if parsed_markdown.needs_list_closure:
+        parsed_markdown = ParsedMarkdown(close_list(parsed_markdown.line), parsed_markdown.needs_list_closure)
 
     output = parsed_markdown.line
     return output
-
-
-def foo(parsed_markdown):
-    if parsed_markdown.needs_list_closure:
-        parsed_markdown = ParsedMarkdown(close_list(parsed_markdown.line), parsed_markdown.needs_list_closure)
-    return parsed_markdown
 
 
 def parse_line(line, output):
