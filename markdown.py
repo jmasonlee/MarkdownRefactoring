@@ -18,11 +18,9 @@ def parse(markdown):
         output = ParsedMarkdown(line, needs_list_closure)
         output_line = output.line
     else:
-        output_line = output.line
+        output_line = line
 
-    output_line = output.line
     return output_line
-
 
 def parse_line(line, output):
     line1 = parse_headers(line)
