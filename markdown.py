@@ -11,8 +11,9 @@ def parse(markdown):
     for line in split_markdown_into_lines(markdown):
         output = parse_line(line, output)
 
-    if output.needs_list_closure:
-        output = ParsedMarkdown(close_list(output.line), output.needs_list_closure)
+    needs_list_closure = output.needs_list_closure
+    if needs_list_closure:
+        output = ParsedMarkdown(close_list(output.line), needs_list_closure)
 
     output_line = output.line
     return output_line
