@@ -14,7 +14,8 @@ def parse(markdown):
     needs_list_closure = output.needs_list_closure
     line = output.line
     if needs_list_closure:
-        output = ParsedMarkdown(close_list(line), needs_list_closure)
+        line = close_list(line)
+        output = ParsedMarkdown(line, needs_list_closure)
 
     output_line = output.line
     return output_line
