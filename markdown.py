@@ -17,8 +17,8 @@ def parse(markdown):
 def parse_line(line, output):
     line = parse_headers(line)
     line = handle_paragraphs(line)
-    last_line_was_in_a_list, new_line = handle_list(output.needs_list_closure, line, add_emphasis)
-    new_result = output.line + new_line
+    last_line_was_in_a_list, line = handle_list(output.needs_list_closure, line, add_emphasis)
+    new_result = output.line + line
     output = ParsedMarkdown(new_result, last_line_was_in_a_list)
     return output
 
