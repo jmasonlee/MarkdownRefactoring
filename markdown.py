@@ -9,7 +9,10 @@ def parse(markdown):
     output = ParsedMarkdown("", False)
 
     for line in split_markdown_into_lines(markdown):
-        output = parse_line(line, output)
+        last_line_was_in_a_list, line = parse_line(line, output)
+        new_result = output.line + line
+        output = ParsedMarkdown(new_result, last_line_was_in_a_list)
+        output = output
 
     return close_list(output.line) if output.needs_list_closure else output.line
 
@@ -18,13 +21,7 @@ def parse_line(line, output):
     line = parse_headers(line)
     line = handle_paragraphs(line)
     last_line_was_in_a_list, line = handle_list(output.needs_list_closure, line, add_emphasis)
-    return applesauce(last_line_was_in_a_list, line, output)
-
-
-def applesauce(last_line_was_in_a_list, line, output):
-    new_result = output.line + line
-    output = ParsedMarkdown(new_result, last_line_was_in_a_list)
-    return output
+    return last_line_was_in_a_list, line
 
 
 def close_list(result):
