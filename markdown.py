@@ -13,6 +13,7 @@ def parse(markdown):
 
     return close_list(output.line) if output.needs_list_closure else output.line
 
+
 def parse_line(line, output):
     line1 = parse_headers(line)
     line1 = handle_paragraphs(line1)
