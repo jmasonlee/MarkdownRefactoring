@@ -38,7 +38,7 @@ def handle_list(already_in_list, new_line, post_process):
     is_list_item = bool(line_starts_with_asterisk_regex_match)
     new_line = start_list(already_in_list, new_line) if is_list_item else new_line
 
-    if is_list_item:
+    if is_list_item and not already_in_list:
         list_item = line_starts_with_asterisk_regex_match.group(1)
         if already_in_list:
             list_item = italicize(list_item)
@@ -46,7 +46,15 @@ def handle_list(already_in_list, new_line, post_process):
         new_line += add_emphasis(wrap_string_in_tag(list_item, 'li'))
         already_in_list = True
 
-    if already_in_list and not is_list_item:
+    elif is_list_item and already_in_list:
+        list_item = line_starts_with_asterisk_regex_match.group(1)
+        if already_in_list:
+            list_item = italicize(list_item)
+
+        new_line += add_emphasis(wrap_string_in_tag(list_item, 'li'))
+        already_in_list = True
+
+    elif already_in_list and not is_list_item:
         already_in_list = False
         new_line = '</ul>' + new_line
     return already_in_list, post_process(new_line)
