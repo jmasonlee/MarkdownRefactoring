@@ -35,6 +35,8 @@ def split_markdown_into_lines(markdown):
 
 def handle_list(in_list, new_line, post_process):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', new_line)
+    is_list_item = bool(line_starts_with_asterisk_regex_match)
+    new_line = start_list(in_list, new_line) if is_list_item else new_line
     if line_starts_with_asterisk_regex_match:
         list_item = line_starts_with_asterisk_regex_match.group(1)
         new_line = start_list(in_list, new_line)
