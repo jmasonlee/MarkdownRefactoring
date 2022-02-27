@@ -37,10 +37,7 @@ def handle_list(in_list, new_line, post_process):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', new_line)
     if line_starts_with_asterisk_regex_match:
         match = line_starts_with_asterisk_regex_match.group(1)
-        if in_list:
-            new_line = ""
-        else:
-            new_line = '<ul>'
+        new_line = start_list(in_list, new_line)
         if in_list:
             list_item = italicize(match)
         else:
@@ -51,6 +48,14 @@ def handle_list(in_list, new_line, post_process):
         in_list = False
         new_line = '</ul>' + new_line
     return in_list, post_process(new_line)
+
+
+def start_list(in_list, new_line):
+    if in_list:
+        new_line = ""
+    else:
+        new_line = '<ul>'
+    return new_line
 
 
 def handle_paragraphs(new_line):
