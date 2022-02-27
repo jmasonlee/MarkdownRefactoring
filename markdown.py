@@ -39,9 +39,11 @@ def handle_list(in_list, new_line, post_process):
         match = line_starts_with_asterisk_regex_match.group(1)
         if in_list:
             new_line = ""
-            list_item = italicize(match)
         else:
             new_line = '<ul>'
+        if in_list:
+            list_item = italicize(match)
+        else:
             list_item = match
         new_line += add_emphasis(wrap_string_in_tag(list_item, 'li'))
         in_list = True
