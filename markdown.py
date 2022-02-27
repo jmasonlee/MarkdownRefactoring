@@ -37,6 +37,7 @@ def handle_list(already_in_list, new_line, post_process):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', new_line)
     is_list_item = bool(line_starts_with_asterisk_regex_match)
     new_line = start_list(already_in_list, new_line) if is_list_item else new_line
+
     if is_list_item:
         list_item = line_starts_with_asterisk_regex_match.group(1)
         if already_in_list:
