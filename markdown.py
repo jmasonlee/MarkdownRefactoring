@@ -45,7 +45,7 @@ def handle_list(in_list, new_line, post_process):
 
         new_line += add_emphasis(wrap_string_in_tag(list_item, 'li'))
         in_list = True
-    if in_list and not line_starts_with_asterisk_regex_match:
+    if in_list and not is_list_item:
         in_list = False
         new_line = '</ul>' + new_line
     return in_list, post_process(new_line)
