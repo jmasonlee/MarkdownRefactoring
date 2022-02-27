@@ -12,7 +12,6 @@ def parse(markdown):
         last_line_was_in_a_list, line = parse_line(line, output)
         new_result = output.line + line
         output = ParsedMarkdown(new_result, last_line_was_in_a_list)
-        output = output
 
     return close_list(output.line) if output.needs_list_closure else output.line
 
@@ -36,7 +35,7 @@ def split_markdown_into_lines(markdown):
 def handle_list(already_in_list, new_line, post_process):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', new_line)
     is_list_item = bool(line_starts_with_asterisk_regex_match)
-    new_line = start_list(already_in_list, new_line) if is_list_item else new_line
+    new_line = start_list(already_in_list) if is_list_item else new_line
 
     if is_list_item:
         list_item = line_starts_with_asterisk_regex_match.group(1)
@@ -55,12 +54,8 @@ def handle_list(already_in_list, new_line, post_process):
     return already_in_list, post_process(new_line)
 
 
-def start_list(in_list, new_line):
-    if in_list:
-        new_line = ""
-    else:
-        new_line = '<ul>'
-    return new_line
+def start_list(in_list):
+    return "" if in_list else '<ul>'
 
 
 def handle_paragraphs(new_line):
