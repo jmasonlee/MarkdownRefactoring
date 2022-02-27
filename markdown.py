@@ -44,6 +44,7 @@ def handle_list(already_in_list, new_line, post_process):
 
         new_line += add_emphasis(wrap_string_in_tag(list_item, 'li'))
         already_in_list = True
+
     if already_in_list and not is_list_item:
         already_in_list = False
         new_line = '</ul>' + new_line
