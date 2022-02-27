@@ -36,12 +36,12 @@ def split_markdown_into_lines(markdown):
 def handle_list(in_list, new_line, post_process):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', new_line)
     if line_starts_with_asterisk_regex_match:
-        match = line_starts_with_asterisk_regex_match.group(1)
+        list_item = line_starts_with_asterisk_regex_match.group(1)
         new_line = start_list(in_list, new_line)
         if in_list:
-            list_item = italicize(match)
+            list_item = italicize(list_item)
         else:
-            list_item = match
+            list_item = list_item
         new_line += add_emphasis(wrap_string_in_tag(list_item, 'li'))
         in_list = True
     if in_list and not line_starts_with_asterisk_regex_match:
