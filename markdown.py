@@ -33,22 +33,22 @@ def split_markdown_into_lines(markdown):
     return markdown.split('\n')
 
 
-def handle_list(in_list, new_line, post_process):
+def handle_list(already_in_list, new_line, post_process):
     line_starts_with_asterisk_regex_match = re.match(r'\* (.*)', new_line)
     is_list_item = bool(line_starts_with_asterisk_regex_match)
-    new_line = start_list(in_list, new_line) if is_list_item else new_line
+    new_line = start_list(already_in_list, new_line) if is_list_item else new_line
     if is_list_item:
         list_item = line_starts_with_asterisk_regex_match.group(1)
-        new_line = start_list(in_list, new_line)
-        if in_list:
+        new_line = start_list(already_in_list, new_line)
+        if already_in_list:
             list_item = italicize(list_item)
 
         new_line += add_emphasis(wrap_string_in_tag(list_item, 'li'))
-        in_list = True
-    if in_list and not is_list_item:
-        in_list = False
+        already_in_list = True
+    if already_in_list and not is_list_item:
+        already_in_list = False
         new_line = '</ul>' + new_line
-    return in_list, post_process(new_line)
+    return already_in_list, post_process(new_line)
 
 
 def start_list(in_list, new_line):
