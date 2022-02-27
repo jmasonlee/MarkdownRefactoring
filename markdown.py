@@ -39,8 +39,8 @@ def handle_list(already_in_list, new_line, post_process):
     new_line = start_list(already_in_list, new_line) if is_list_item else new_line
 
     if is_list_item:
+        list_item = line_starts_with_asterisk_regex_match.group(1)
         if already_in_list:
-            list_item = line_starts_with_asterisk_regex_match.group(1)
             list_item = italicize(list_item)
 
         else:
