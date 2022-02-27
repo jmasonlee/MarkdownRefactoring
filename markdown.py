@@ -38,7 +38,8 @@ def handle_list(in_list, new_line, post_process):
     if line_starts_with_asterisk_regex_match:
         match = line_starts_with_asterisk_regex_match.group(1)
         if in_list:
-            new_line = add_emphasis(wrap_string_in_tag(italicize(match), 'li'))
+            new_line = ""
+            new_line = new_line + add_emphasis(wrap_string_in_tag(italicize(match), 'li'))
         else:
             new_line = '<ul>'
             new_line = new_line + add_emphasis(wrap_string_in_tag(match, 'li'))
